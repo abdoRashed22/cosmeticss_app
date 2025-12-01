@@ -1,6 +1,7 @@
 import 'package:cosmetics/core/widgets/custom_text_form_feild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchInput extends StatelessWidget {
   const SearchInput({
@@ -12,7 +13,6 @@ class SearchInput extends StatelessWidget {
 
   final String? hintText;
   final TextEditingController? controller;
-
   final VoidCallback? onSearchTap;
 
   @override
@@ -23,15 +23,14 @@ class SearchInput extends StatelessWidget {
       textInputType: TextInputType.text,
       controller: controller,
       obscureText: false,
-
       suffix: GestureDetector(
         onTap: onSearchTap,
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(12.w),
           child: SvgPicture.asset(
             'assets/svg/search.svg',
-            width: 18,
-            height: 18,
+            width: 18.w,
+            height: 18.h,
           ),
         ),
       ),

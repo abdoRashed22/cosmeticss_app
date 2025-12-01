@@ -4,6 +4,7 @@ import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/core/widgets/custom_text_form_feild.dart';
 import 'package:cosmetics/core/widgets/drop_down.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,48 +17,46 @@ class _LoginPageState extends State<LoginPage> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
-  //ask for duspose and init state
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: AppColors.backGroundColor,
       body: SingleChildScrollView(
-        padding: const EdgeInsetsDirectional.only(top: 60),
+        padding: EdgeInsetsDirectional.only(top: 60.h),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
+          padding: EdgeInsets.symmetric(vertical: 40.h, horizontal: 24.w),
           child: Form(
             key: formKey,
             autovalidateMode: autovalidateMode,
             child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Center(
                   child: Image.asset(
                     'assets/png/login_img.png',
-                    height: 300,
-                    width: 250,
+                    height: 300.h,
+                    width: 250.w,
                   ),
                 ),
-                const SizedBox(height: 25),
+                SizedBox(height: 25.h),
                 Text(
                   'Login Now',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 24,
+                  style: TextStyle(
+                    fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff434C6D),
+                    color: const Color(0xff434C6D),
                   ),
                 ),
-                const SizedBox(height: 14),
+                SizedBox(height: 14.h),
                 Text(
                   'Please enter the details below to continue',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color(0xff8E8EA9),
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: const Color(0xff8E8EA9),
                   ),
                 ),
-                const SizedBox(height: 25),
+                SizedBox(height: 25.h),
                 Row(
                   children: [
                     AppDropDown(),
@@ -84,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 TextFormFeild(
                   labledText: 'Password',
                   hintText: 'Your Password',
@@ -99,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -111,14 +110,14 @@ class _LoginPageState extends State<LoginPage> {
                         'Forget Password?',
                         style: TextStyle(
                           color: AppColors.primaryColor,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 CustomButton(
                   text: 'Login',
                   onPressed: () {
@@ -137,23 +136,26 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   },
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Don’t have an account?",
-                      style: TextStyle(color: Color(0xff434C6D)),
+                      style: TextStyle(
+                        color: const Color(0xff434C6D),
+                        fontSize: 14.sp,
+                      ),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, 'createAccount');
                       },
-                      child: const Text(
+                      child: Text(
                         'Register',
                         style: TextStyle(
                           color: AppColors.primaryColor,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Montserrat',
                         ),

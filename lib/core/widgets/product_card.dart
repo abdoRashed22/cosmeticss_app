@@ -1,27 +1,31 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class ProductCard extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String price;
+
   const ProductCard({
     super.key,
     required this.imageUrl,
     required this.title,
     required this.price,
   });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
+      padding: EdgeInsets.symmetric(horizontal: 6.w),
       child: Card(
         color: AppColors.backGroundColor,
         margin: EdgeInsets.zero,
         elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
         child: SizedBox(
-          width: 176,
-          height: 237,
+          width: 176.w,
+          height: 237.h,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,56 +33,54 @@ class ProductCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     clipBehavior: Clip.antiAlias,
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    borderRadius: BorderRadius.all(Radius.circular(4.r)),
                     child: Image.asset(
                       imageUrl,
                       fit: BoxFit.fill,
-                      height: 160,
+                      height: 160.h,
                       width: double.infinity,
                     ),
                   ),
-                  //cart
                   Positioned(
-                    width: 32,
-                    height: 32,
-                    top: 15,
-                    right: 10,
+                    width: 32.w,
+                    height: 32.h,
+                    top: 15.h,
+                    right: 10.w,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color(0xffFFFAFA),
-                        borderRadius: BorderRadius.circular(8),
+                        color: const Color(0xffFFFAFA),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
-                      padding: const EdgeInsets.all(4),
+                      padding: EdgeInsets.all(4.w),
                       child: Icon(
                         Icons.shopping_bag_outlined,
-
                         color: AppColors.primaryColor,
-                        size: 20,
+                        size: 20.sp,
                       ),
                     ),
                   ),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: TextStyle(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff434C6D),
+                        color: const Color(0xff434C6D),
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
                     Text(
                       price,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.grey[600],
                       ),

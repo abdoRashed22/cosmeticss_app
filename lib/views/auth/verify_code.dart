@@ -3,6 +3,7 @@ import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/views/auth/succes_stage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -54,62 +55,59 @@ class _VerifyCodeState extends State<VerifyCode> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 40.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 50),
+              SizedBox(height: 50.h),
               SvgPicture.asset(
                 'assets/svg/create_account.svg',
-                height: 62,
-                width: 67,
+                height: 62.h,
+                width: 67.w,
               ),
-              const SizedBox(height: 40),
-
+              SizedBox(height: 40.h),
               Center(
                 child: Text(
                   'Verify Code',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
                     color: Color(0xff434C6D),
                   ),
                 ),
               ),
-
-              const SizedBox(height: 40),
-
+              SizedBox(height: 40.h),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   children: [
-                    const TextSpan(
+                    TextSpan(
                       text: 'We just sent a 4-digit verification code to\n+20 ',
-                      style: TextStyle(fontSize: 14, color: Color(0xff8E8EA9)),
+                      style: TextStyle(fontSize: 14.sp, color: Color(0xff8E8EA9)),
                     ),
                     TextSpan(
                       text: widget.phone,
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: TextStyle(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff434C6D),
                       ),
                     ),
-                    const TextSpan(
+                    TextSpan(
                       text: '. Enter the code in the box below to continue.',
-                      style: TextStyle(fontSize: 14, color: Color(0xff8E8EA9)),
+                      style: TextStyle(fontSize: 14.sp, color: Color(0xff8E8EA9)),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               Row(
                 children: [
                   TextButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Edit the number',
-                      style: TextStyle(color: AppColors.primaryColor),
+                      style: TextStyle(fontSize: 14.sp, color: AppColors.primaryColor),
                     ),
                   ),
                 ],
@@ -118,7 +116,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                 backgroundColor: AppColors.backGroundColor,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 cursorColor: Color(0x10101038),
-                cursorHeight: 16,
+                cursorHeight: 16.h,
                 appContext: context,
                 length: 4,
                 obscureText: false,
@@ -126,9 +124,9 @@ class _VerifyCodeState extends State<VerifyCode> {
                 animationType: AnimationType.scale,
                 pinTheme: PinTheme(
                   shape: PinCodeFieldShape.box,
-                  borderRadius: BorderRadius.circular(8),
-                  fieldHeight: 50,
-                  fieldWidth: 50,
+                  borderRadius: BorderRadius.circular(8.r),
+                  fieldHeight: 50.h,
+                  fieldWidth: 50.w,
                   activeColor: AppColors.primaryColor,
                   inactiveColor: Color(0xff898992),
                   selectedColor: AppColors.primaryColor,
@@ -140,48 +138,42 @@ class _VerifyCodeState extends State<VerifyCode> {
                 enableActiveFill: true,
                 onChanged: (value) {},
               ),
-              const SizedBox(height: 43),
+              SizedBox(height: 43.h),
               Row(
                 children: [
-                  const Text(
+                  Text(
                     "Didn’t receive a code? ",
-                    style: TextStyle(color: Color(0xff434C6D)),
+                    style: TextStyle(fontSize: 14.sp, color: Color(0xff434C6D)),
                   ),
                   GestureDetector(
-                    onTap: canResend
-                        ? () {
-                            startTimer();
-                          }
-                        : null,
+                    onTap: canResend ? () => startTimer() : null,
                     child: Text(
                       "Resend",
                       style: TextStyle(
+                        fontSize: 14.sp,
                         color: canResend ? AppColors.primaryColor : Colors.grey,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  const Spacer(),
+                  Spacer(),
                   Text(
                     "0:${seconds.toString().padLeft(2, '0')}",
-                    style: const TextStyle(color: Color(0xff434C6D)),
+                    style: TextStyle(fontSize: 14.sp, color: Color(0xff434C6D)),
                   ),
                 ],
               ),
-              const SizedBox(height: 200),
+              SizedBox(height: 200.h),
               CustomButton(
                 text: 'Done',
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => SuccesStage(
-
-                      
-                    ),
+                    builder: (context) => SuccesStage(),
                   );
                 },
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30.h),
             ],
           ),
         ),

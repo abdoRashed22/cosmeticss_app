@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppDropDown extends StatefulWidget {
-  //final TextEditingController controller;
-
   const AppDropDown({super.key});
 
   @override
@@ -17,18 +16,18 @@ class _AppDropDownState extends State<AppDropDown> {
     return Row(
       children: [
         Container(
-          width: 85,
-          height: 45,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          width: 85.w,
+          height: 45.h,
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.grey, width: 1),
+            borderRadius: BorderRadius.circular(8.r),
+            border: Border.all(color: Colors.grey, width: 1.w),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: selectedCode,
               isExpanded: true,
-              icon: const Icon(Icons.keyboard_arrow_down),
+              icon: Icon(Icons.keyboard_arrow_down, size: 20.sp),
               items: const [
                 DropdownMenuItem(value: "+20", child: Text("+20")),
                 DropdownMenuItem(value: "+966", child: Text("+966")),
@@ -44,8 +43,7 @@ class _AppDropDownState extends State<AppDropDown> {
             ),
           ),
         ),
-
-        const SizedBox(width: 8),
+        SizedBox(width: 8.w),
       ],
     );
   }

@@ -196,4 +196,3 @@ class _LoginPageState extends State<CreateAccountPage> {
     );
   }
 }
-

@@ -1,5 +1,6 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -27,19 +28,18 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
-        minimumSize: Size(width, height),
+        minimumSize: Size(width.w, height.h),
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(borderRadius.r),
         ),
       ),
       child: Text(
         text,
-        style:
-            textStyle ??
-            const TextStyle(
+        style: textStyle ??
+            TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
             ),
       ),

@@ -1,13 +1,14 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
-// تأكد من استيراد ملف MainView هنا
 import 'package:cosmetics/views/home/main_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 class SuccesStage extends StatefulWidget {
   const SuccesStage({super.key});
-final String title = "Account Activated!";
+  final String title = "Account Activated!";
+
   @override
   State<SuccesStage> createState() => _SuccesStageState();
 }
@@ -22,48 +23,50 @@ class _SuccesStageState extends State<SuccesStage> {
         builder: (context) {
           return AlertDialog(
             backgroundColor: AppColors.backGroundColor,
-            contentPadding: const EdgeInsets.all(20),
+            contentPadding: EdgeInsets.all(20.w),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
             ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 120,
-                  height: 120,
+                  width: 120.w,
+                  height: 120.h,
                   decoration: const BoxDecoration(
                     color: AppColors.backGroundColor,
                     shape: BoxShape.circle,
                   ),
                   child: Lottie.asset(
                     'assets/lottie/success.json',
-                    height: 100,
-                    width: 100,
+                    height: 100.h,
+                    width: 100.w,
                     repeat: false,
                   ),
                 ),
-                const SizedBox(height: 25),
-                const Text(
+                SizedBox(height: 25.h),
+                Text(
                   "Account Activated!",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 26.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                const SizedBox(height: 10),
-                const Text(
+                SizedBox(height: 10.h),
+                Text(
                   "Congratulations! Your account \nhas been successfully activated",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff8E8EA9),
+                    color: const Color(0xff8E8EA9),
                   ),
                 ),
-                const SizedBox(height: 23),
+                SizedBox(height: 23.h),
                 CustomButton(
                   text: 'Go To Home',
                   onPressed: () {
                     Navigator.pop(context);
-
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => const MainView()),
