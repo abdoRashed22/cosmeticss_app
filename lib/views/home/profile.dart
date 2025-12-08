@@ -26,7 +26,6 @@ class ProfileView extends StatelessWidget {
             ),
           ),
 
-          // ================== Avatar and name =====================
           Transform.translate(
             offset: Offset(0, -50.h),
             child: Column(
