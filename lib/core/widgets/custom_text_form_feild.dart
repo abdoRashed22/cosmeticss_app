@@ -47,6 +47,7 @@ class _TextFormFeildState extends State<TextFormFeild> {
         labelText: widget.labledText,
         hintText: widget.hintText,
         filled: true,
+        isDense: true,
         fillColor: AppColors.backGroundColor,
         prefixIcon: widget.prefix,
         suffixIcon: widget.isPassword

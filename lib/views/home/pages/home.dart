@@ -1,6 +1,4 @@
-import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/helper/app_image.dart';
-import 'package:cosmetics/core/widgets/product_card.dart';
 import 'package:cosmetics/core/widgets/search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,8 +24,7 @@ class Home extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     AppImage(
-                      image:
-                          'https://images.summitmedia-digital.com/cosmo/images/2020/07/29/laura-mercier-tinted-moisturizer-1596021578.jpg',
+                      image: 'layer1.png',
                       height: 320.h,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -246,8 +243,7 @@ class ProductItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.r),
 
               child: AppImage(
-                image:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST4jKyMdtHAjIZF0ykJ0WLlsHLQi9xXxbIdJjX6D83_mtqKloa',
+                image: 'pro1.jpg',
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AppImage extends StatelessWidget {
-  const AppImage({super.key, required this.image, this.width, this.height, this.color, this.fit});
+  const   AppImage({super.key, required this.image, this.width, this.height, this.color, this.fit});
   final String image;
   final double? width, height;
   final Color? color;
