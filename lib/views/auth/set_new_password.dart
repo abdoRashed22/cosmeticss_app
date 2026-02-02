@@ -1,7 +1,7 @@
 import 'package:cosmetics/core/widgets/custom_back_button.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/core/widgets/custom_text_form_feild.dart';
-import 'package:cosmetics/views/auth/succes_stage.dart';
+import 'package:cosmetics/views/auth/succes_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
@@ -46,7 +46,6 @@ class _SetNewPasswordState extends State<SetNewPassword> {
                 style: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w700,
-                  fontFamily: 'Montserrat',
                 ),
               ),
               SizedBox(height: 40.h),
@@ -54,7 +53,6 @@ class _SetNewPasswordState extends State<SetNewPassword> {
                 'The password should have at least 6 characters',
                 style: TextStyle(
                   fontSize: 14.sp,
-                  fontFamily: 'Montserrat',
                   color: const Color(0xff8E8EA9),
                 ),
               ),
@@ -121,7 +119,7 @@ class _SetNewPasswordState extends State<SetNewPassword> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => SuccesStage(
+                            builder: (_) => SuccesDialog(
                               title: "Password Changed",
                               message:
                                   "Your password has been changed successfully",

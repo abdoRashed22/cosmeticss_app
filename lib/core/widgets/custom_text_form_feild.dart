@@ -65,7 +65,7 @@ class _TextFormFeildState extends State<TextFormFeild> {
                   });
                 },
               )
-            : widget.suffix,
+            : null,
       ),
     );
   }

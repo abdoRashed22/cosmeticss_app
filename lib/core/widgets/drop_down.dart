@@ -9,15 +9,15 @@ class AppDropDown extends StatefulWidget {
 }
 
 class _AppDropDownState extends State<AppDropDown> {
-  String selectedCode = "+20";
-
+  String selectedCode = '+20';
+  final numList = ['+20', '+966', '+36'];
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
           width: 85.w,
-          height: 45.h,
+          height: 50.h,
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.r),
@@ -26,13 +26,10 @@ class _AppDropDownState extends State<AppDropDown> {
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: selectedCode,
-              isExpanded: true,
               icon: Icon(Icons.keyboard_arrow_down, size: 20.sp),
-              items: const [
-                DropdownMenuItem(value: "+20", child: Text("+20")),
-                DropdownMenuItem(value: "+966", child: Text("+966")),
-                DropdownMenuItem(value: "+971", child: Text("+971")),
-              ],
+              items: numList
+                  .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                  .toList(),
               onChanged: (val) {
                 if (val != null) {
                   setState(() {

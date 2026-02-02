@@ -45,18 +45,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               SizedBox(height: 40.h),
               Text(
                 'Forget Password',
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Montserrat',
-                ),
+                style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w700),
               ),
               SizedBox(height: 40.h),
               Text(
                 'Please enter your phone number below \n    to recovery your password.',
                 style: TextStyle(
                   fontSize: 14.sp,
-                  fontFamily: 'Montserrat',
                   color: const Color(0xff8E8EA9),
                 ),
               ),

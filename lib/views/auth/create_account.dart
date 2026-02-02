@@ -1,5 +1,6 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/helper/message_snack_bar.dart';
+import 'package:cosmetics/core/widgets/app_login_or_rigister.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/core/widgets/custom_text_form_feild.dart';
 import 'package:cosmetics/core/widgets/drop_down.dart';
@@ -68,17 +69,10 @@ class _LoginPageState extends State<CreateAccountPage> {
                 ),
                 SizedBox(height: 16.h),
                 Row(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                  
-                  
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: [
-                    SizedBox(
-                      width: 95.w,
-            
-            
-                      child: AppDropDown(),
-                    ),
+                    SizedBox(width: 95.w, child: AppDropDown()),
 
                     SizedBox(width: 8.w),
 
@@ -137,7 +131,7 @@ class _LoginPageState extends State<CreateAccountPage> {
                   },
                 ),
                 SizedBox(height: 16.h),
-            
+
                 SizedBox(height: 30.h),
                 CustomButton(
                   text: 'Next',
@@ -162,37 +156,12 @@ class _LoginPageState extends State<CreateAccountPage> {
                   },
                 ),
                 SizedBox(height: 30.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Have an account?",
-                      style: TextStyle(
-                        color: const Color(0xff434C6D),
-                        fontSize: 14.sp,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, 'login');
-                      },
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: AppLoginOrRigister(isLogin: false),
     );
   }
 }

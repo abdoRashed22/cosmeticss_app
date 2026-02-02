@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/views/auth/set_new_password.dart';
-import 'package:cosmetics/views/auth/succes_stage.dart';
+import 'package:cosmetics/views/auth/succes_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -188,7 +188,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                     // → Create Account mode
                     showDialog(
                       context: context,
-                      builder: (context) => SuccesStage(
+                      builder: (context) => SuccesDialog(
                         title: 'Congratulations',
 
                         message: 'Your account has been created successfully',

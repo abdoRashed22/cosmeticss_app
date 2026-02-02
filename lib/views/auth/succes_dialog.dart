@@ -5,24 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
-class SuccesStage extends StatefulWidget {
-  final String title,message,textButton;
+class SuccesDialog extends StatefulWidget {
+  final String title, message, textButton;
 
-
-
-  const SuccesStage({
+  const SuccesDialog({
     super.key,
     required this.title,
     required this.message,
     required this.textButton,
-
   });
 
   @override
-  State<SuccesStage> createState() => _SuccesStageState();
+  State<SuccesDialog> createState() => _SuccesDialogState();
 }
 
-class _SuccesStageState extends State<SuccesStage> {
+class _SuccesDialogState extends State<SuccesDialog> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
