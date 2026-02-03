@@ -6,14 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
 
-class SetNewPassword extends StatefulWidget {
-  const SetNewPassword({super.key});
+class CreatePassword extends StatefulWidget {
+  const CreatePassword({super.key,  this.isFromForget=false});
+  final bool isFromForget;
 
   @override
-  State<SetNewPassword> createState() => _SetNewPasswordState();
+  State<CreatePassword> createState() => _CreatePasswordState();
 }
 
-class _SetNewPasswordState extends State<SetNewPassword> {
+class _CreatePasswordState extends State<CreatePassword> {
   final newPassController = TextEditingController();
   final confirmNewPassController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -117,16 +118,18 @@ class _SetNewPasswordState extends State<SetNewPassword> {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => SuccesDialog(
-                              title: "Password Changed",
-                              message:
-                                  "Your password has been changed successfully",
-                              textButton: 'Return to join',
-                            ),
-                          ),
-                        );
+  context,
+  MaterialPageRoute(
+    builder: (_) => SuccesDialog(
+      title: "Password Changed",
+      message: "Your password has been changed successfully",
+      textButton: 'Return to home',
+      isFromForget: true,
+    ),
+  ),
+);
+
+                        
                       } else {
                         setState(
                           () => autovalidateMode = AutovalidateMode.always,

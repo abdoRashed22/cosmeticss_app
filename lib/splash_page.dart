@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -26,7 +27,9 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset('assets/icons/splash.svg', width: 200.w, height: 200.h),
+            Bounce(
+              duration: Duration(seconds: 2),
+              child: SvgPicture.asset('assets/icons/splash.svg', width: 200.w, height: 200.h)),
             SizedBox(height: 20),
 
             SvgPicture.asset('assets/icons/axon.svg', width: 120.w, height: 46.h),

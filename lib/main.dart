@@ -1,8 +1,10 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/helper/on_generate_route.dart';
 import 'package:cosmetics/splash_page.dart';
+import 'package:cosmetics/views/auth/forget_password.dart';
 import 'package:cosmetics/views/auth/login.dart';
-import 'package:cosmetics/views/auth/set_new_password.dart';
+import 'package:cosmetics/views/auth/create_password.dart';
+import 'package:cosmetics/views/auth/verify_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,6 +29,9 @@ class MyApp extends StatelessWidget {
 
           // initialRoute: 'splash',
           theme: ThemeData(
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: Color(0xFF434C6D),
+            ),
             filledButtonTheme: FilledButtonThemeData(
               style: FilledButton.styleFrom(
                 // for hright only and make a width responsible foe text

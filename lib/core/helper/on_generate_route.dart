@@ -1,6 +1,7 @@
 import 'package:cosmetics/on_boarding_page.dart';
 import 'package:cosmetics/splash_page.dart';
 import 'package:cosmetics/views/auth/create_account.dart';
+import 'package:cosmetics/views/auth/create_password.dart';
 import 'package:cosmetics/views/auth/forget_password.dart';
 import 'package:cosmetics/views/auth/login.dart';
 import 'package:cosmetics/views/auth/succes_dialog.dart';
@@ -23,7 +24,8 @@ class AppRouter {
 
       case 'createAccount':
         return MaterialPageRoute(builder: (_) => CreateAccountPage());
-
+case 'createPassword':
+        return MaterialPageRoute(builder: (_) => CreatePassword());
       case 'main':
         return MaterialPageRoute(builder: (_) => MainView());
       case 'home':
@@ -40,6 +42,7 @@ class AppRouter {
             title: settings.arguments as String,
             message: settings.arguments as String,
             textButton: settings.arguments as String,
+            isFromForget: settings.arguments as bool,
           ),
         );
       case 'forgetPassword':

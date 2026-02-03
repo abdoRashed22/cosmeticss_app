@@ -5,21 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
-class SuccesDialog extends StatefulWidget {
+class SuccesDialog extends StatelessWidget {
   final String title, message, textButton;
-
+  final bool isFromForget;
   const SuccesDialog({
     super.key,
     required this.title,
     required this.message,
     required this.textButton,
+    required this.isFromForget,
   });
 
-  @override
-  State<SuccesDialog> createState() => _SuccesDialogState();
-}
-
-class _SuccesDialogState extends State<SuccesDialog> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -52,7 +48,7 @@ class _SuccesDialogState extends State<SuccesDialog> {
                 ),
                 SizedBox(height: 25.h),
                 Text(
-                  widget.title,
+                  title,
                   style: TextStyle(
                     fontSize: 26.sp,
                     fontWeight: FontWeight.bold,
@@ -60,7 +56,7 @@ class _SuccesDialogState extends State<SuccesDialog> {
                 ),
                 SizedBox(height: 10.h),
                 Text(
-                  widget.message,
+                  message,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14.sp,
@@ -70,13 +66,18 @@ class _SuccesDialogState extends State<SuccesDialog> {
                 ),
                 SizedBox(height: 23.h),
                 CustomButton(
-                  text: widget.textButton,
+                  text: textButton,
                   onPressed: () {
                     Navigator.pop(context);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MainView()),
-                    );
+
+                    if (isFromForget) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const MainView()),
+                      );
+                    } else {
+                      Navigator.pushReplacementNamed(context, 'login');
+                    }
                   },
                 ),
               ],

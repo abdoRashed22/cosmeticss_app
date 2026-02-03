@@ -1,12 +1,13 @@
-import 'dart:async';
 import 'package:cosmetics/core/helper/app_colors.dart';
+import 'package:cosmetics/core/widgets/custom_back_button.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
-import 'package:cosmetics/views/auth/set_new_password.dart';
+import 'package:cosmetics/core/widgets/custom_pin_code.dart';
+import 'package:cosmetics/core/widgets/resend_otp.dart';
+import 'package:cosmetics/views/auth/create_password.dart';
 import 'package:cosmetics/views/auth/succes_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyCode extends StatefulWidget {
   final String phone;
@@ -19,11 +20,9 @@ class VerifyCode extends StatefulWidget {
 }
 
 class _VerifyCodeState extends State<VerifyCode> {
-  int seconds = 60;
-  Timer? timer;
   bool canResend = false;
 
-  @override
+  /* @override
   void initState() {
     super.initState();
     startTimer();
@@ -50,17 +49,21 @@ class _VerifyCodeState extends State<VerifyCode> {
   void dispose() {
     timer?.cancel();
     super.dispose();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 40.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 40.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: 20.h),
+
+              Row(children: [CustomBackButton()]),
+
               SizedBox(height: 50.h),
               SvgPicture.asset(
                 'assets/icons/create_account.svg',
@@ -87,11 +90,12 @@ class _VerifyCodeState extends State<VerifyCode> {
                       text: 'We just sent a 4-digit verification code to\n+20 ',
                       style: TextStyle(
                         fontSize: 14.sp,
+                        height: 1.5,
                         color: Color(0xff8E8EA9),
                       ),
                     ),
                     TextSpan(
-                      text: widget.phone,
+                      text: (widget.phone + "\t"),
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
@@ -99,9 +103,10 @@ class _VerifyCodeState extends State<VerifyCode> {
                       ),
                     ),
                     TextSpan(
-                      text: '. Enter the code in the box below to continue.',
+                      text: '. Enter the code in the box \n below to continue.',
                       style: TextStyle(
                         fontSize: 14.sp,
+                        height: 1.5,
                         color: Color(0xff8E8EA9),
                       ),
                     ),
@@ -112,51 +117,25 @@ class _VerifyCodeState extends State<VerifyCode> {
               Row(
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: Text(
                       'Edit the number',
                       style: TextStyle(
                         fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
                         color: AppColors.primaryColor,
                       ),
                     ),
                   ),
                 ],
               ),
-              PinCodeTextField(
-                backgroundColor: AppColors.backGroundColor,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                cursorColor: Color(0x10101038),
-                cursorHeight: 16.h,
-                appContext: context,
-                length: 4,
-                obscureText: false,
-                keyboardType: TextInputType.number,
-                animationType: AnimationType.scale,
-                pinTheme: PinTheme(
-                  shape: PinCodeFieldShape.box,
-                  borderRadius: BorderRadius.circular(8.r),
-                  fieldHeight: 50.h,
-                  fieldWidth: 50.w,
-                  activeColor: AppColors.primaryColor,
-                  inactiveColor: Color(0xff898992),
-                  selectedColor: AppColors.primaryColor,
-                  activeFillColor: AppColors.backGroundColor,
-                  inactiveFillColor: AppColors.backGroundColor,
-                  selectedFillColor: AppColors.backGroundColor,
-                ),
-                animationDuration: const Duration(milliseconds: 300),
-                enableActiveFill: true,
-                onChanged: (value) {},
-              ),
+              CustomPinCode(),
               SizedBox(height: 43.h),
-              Row(
-                children: [
-                  Text(
-                    "Didn’t receive a code? ",
-                    style: TextStyle(fontSize: 14.sp, color: Color(0xff434C6D)),
-                  ),
-                  GestureDetector(
+              ResendOtp(),
+
+              /* GestureDetector(
                     onTap: canResend ? () => startTimer() : null,
                     child: Text(
                       "Resend",
@@ -166,33 +145,31 @@ class _VerifyCodeState extends State<VerifyCode> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  Spacer(),
+                  ),*/
+              /*
                   Text(
                     "0:${seconds.toString().padLeft(2, '0')}",
                     style: TextStyle(fontSize: 14.sp, color: Color(0xff434C6D)),
-                  ),
-                ],
-              ),
-              SizedBox(height: 200.h),
+                  ),*/
+              SizedBox(height: 120.h),
               CustomButton(
                 text: 'Done',
                 onPressed: () {
                   if (widget.isFromForget) {
-                    // → Forget Password mode
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => SetNewPassword()),
+                      MaterialPageRoute(
+                        builder: (_) => CreatePassword(isFromForget: true),
+                      ),
                     );
                   } else {
-                    // → Create Account mode
                     showDialog(
                       context: context,
-                      builder: (context) => SuccesDialog(
+                      builder: (_) => SuccesDialog(
                         title: 'Congratulations',
-
                         message: 'Your account has been created successfully',
-                        textButton: 'Go to Home',
+                        textButton: 'Go to Login',
+                        isFromForget: false,
                       ),
                     );
                   }

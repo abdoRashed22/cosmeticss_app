@@ -145,7 +145,7 @@ class _LoginPageState extends State<CreateAccountPage> {
                         context,
                         MaterialPageRoute(
                           builder: (_) =>
-                              VerifyCode(phone: phoneController.text),
+                              VerifyCode(phone: phoneController.text,isFromForget: false,),
                         ),
                       );
                     } else {
