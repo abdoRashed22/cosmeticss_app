@@ -15,7 +15,7 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  int currentIndex = 0;
+  int currentIndex = 3;
   final list = [
     _Models(
       Home(),

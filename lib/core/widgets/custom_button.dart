@@ -1,6 +1,7 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -10,11 +11,12 @@ class CustomButton extends StatelessWidget {
   final double height;
   final double borderRadius;
   final TextStyle? textStyle;
-
+  final String? icon;
   const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,
+    this.icon,
     this.backgroundColor = AppColors.primaryColor,
     this.width = 265,
     this.height = 65,
@@ -24,7 +26,15 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return ElevatedButton.icon(
+      icon: icon != null
+          ? SvgPicture.asset(
+              icon!,
+              color: Colors.white,
+              width: 19.w,
+              height: 19.h,
+            )
+          : null,
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
@@ -34,9 +44,10 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius.r),
         ),
       ),
-      child: Text(
+      label: Text(
         text,
-        style: textStyle ??
+        style:
+            textStyle ??
             TextStyle(
               backgroundColor: backgroundColor,
               color: Colors.white,

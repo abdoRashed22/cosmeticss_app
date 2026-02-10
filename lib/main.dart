@@ -5,6 +5,9 @@ import 'package:cosmetics/views/auth/forget_password.dart';
 import 'package:cosmetics/views/auth/login.dart';
 import 'package:cosmetics/views/auth/create_password.dart';
 import 'package:cosmetics/views/auth/verify_code.dart';
+import 'package:cosmetics/views/check_out.dart';
+import 'package:cosmetics/views/home/main_view.dart';
+import 'package:cosmetics/views/home/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -83,7 +86,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
 
-          home: SplashPage(),
+          home: CheckOut(),
         );
       },
     );
