@@ -1,5 +1,5 @@
-import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/helper/app_image.dart';
+import 'package:cosmetics/core/helper/cach.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,6 +59,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         currentIndex++;
       });
     } else {
+      Cach.setIsNotFirstTime(false);
       Navigator.pushReplacementNamed(context, 'login');
     }
   }
@@ -158,7 +159,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                               color: Colors.white,
                               backgroundColor: const Color(0xFF434C6D),
                               fontWeight: FontWeight.bold,
-                           
+
                               fontSize: 18.sp,
                               letterSpacing: 1.sp,
                             ),

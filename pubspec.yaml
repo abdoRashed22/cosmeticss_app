@@ -3,25 +3,27 @@ description: "A new Flutter project."
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-
 version: 1.0.0+1
 
 environment:
   sdk: ^3.8.1
 
-
 dependencies:
-  cupertino_icons: ^1.0.8
   animate_do: ^4.2.0
+  circular_countdown_timer: null
+  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
   flutter_assets_generator: ^0.1.0
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.1.0
+  geolocator: ^14.0.2
+  google_maps_flutter: ^2.2.0
   lottie: null
+  map_launcher: ^4.4.3
+  maps_launcher: ^3.0.0+1
   pin_code_fields: ^8.0.1
-  circular_countdown_timer: 
-    
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_lints: ^5.0.0
@@ -29,7 +31,6 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
 
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
@@ -39,8 +40,6 @@ flutter:
     - assets/lotties/
 
   fonts:
-    - family: Montserrat  
+    - family: Montserrat
       fonts:
         - asset: assets/fonts/montserrat-regular.ttf
-       
-          

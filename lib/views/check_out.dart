@@ -3,12 +3,15 @@ import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 class CheckOut extends StatelessWidget {
   const CheckOut({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final position = LatLng(31.0409, 31.3785);
     return Scaffold(
       appBar: AppBar(
         leading: CustomBackButton(passingValue: 16),
@@ -31,10 +34,39 @@ class CheckOut extends StatelessWidget {
                 SizedBox(height: 18.h),
                 _Tile(
                   title: 'Mansoura',
-                  leading: Container(
-                    height: 60.h,
-                    width: 97.w,
-                    color: Colors.red,
+                  leading: ClipRRect(
+                    borderRadius: BorderRadiusGeometry.circular(6.r),
+                    child: SizedBox(
+                      height: 60.h,
+                      width: 97.w,
+
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, 'pinLocation');
+                          /*    MapsLauncher.launchCoordinates(
+                       position.latitude, position.longitude, 'Mansoura'
+                      ); */
+                        },
+
+                        child: AbsorbPointer(
+                          child: GoogleMap(
+                            markers: {
+                              Marker(
+                                markerId: MarkerId("my location"),
+                                position: position,
+                              ),
+                            },
+                            initialCameraPosition: CameraPosition(
+                              target: position,
+                              
+                              zoom: 10,
+                            ),
+                            liteModeEnabled: true,
+                            myLocationEnabled:true,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   subTitle: "mansoura, 14 portsiad",
                   buttomSpace: 40.h,
@@ -217,35 +249,3 @@ class _Tile extends StatelessWidget {
     );
   }
 }
-/*   Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14.w),
-                  child: ListTile(
-                    horizontalTitleGap: 10,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      //vertical: 18.h,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Color(0xff73B9BB), width: 1.5.w),
-                      borderRadius: BorderRadiusGeometry.circular(30.r),
-                    ),
-          
-                    leading: SvgPicture.asset(
-                      'assets/icons/meza.svg',
-                      width: 30.w,
-                      height: 20.h,
-                    ),
-                    title: Text(
-                      '**** **** **** 1234',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-          
-                    trailing: SvgPicture.asset(
-                      "assets/icons/arrow.svg",
-                      color: Colors.pink,
-                    ),
-                  ),
-                ), */

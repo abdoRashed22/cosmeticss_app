@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
 void showCustomSnackBar({
   required BuildContext context,
   required String message,
@@ -21,3 +22,13 @@ void showCustomSnackBar({
 
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
+
+/* void showMsg(String msg) {
+  if(msg.isNotEmpty){
+ ScaffoldMessenger.of(
+    navigatorKey.currentContext,
+  ).showSnackBar(SnackBar(content: Text(msg)));
+  }
+ 
+}
+ */

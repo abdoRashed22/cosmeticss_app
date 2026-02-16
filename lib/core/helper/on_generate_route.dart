@@ -10,6 +10,7 @@ import 'package:cosmetics/views/home/pages/category.dart';
 import 'package:cosmetics/views/home/pages/home.dart';
 import 'package:cosmetics/views/home/main_view.dart';
 import 'package:cosmetics/views/home/pages/profile.dart';
+import 'package:cosmetics/views/home/widgets/pin_location.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -34,6 +35,8 @@ case 'createPassword':
         return MaterialPageRoute(builder: (_) => Cart());
       case 'category':
         return MaterialPageRoute(builder: (_) => Category());
+      case 'pinLocation':
+        return MaterialPageRoute(builder: (_) => PinLocationView());
       case 'profile':
         return MaterialPageRoute(builder: (_) => Profile());
       case 'succesStage':
