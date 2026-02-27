@@ -1,4 +1,5 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
+import 'package:cosmetics/core/helper/input_validator.dart';
 import 'package:cosmetics/core/helper/message_snack_bar.dart';
 import 'package:cosmetics/core/widgets/app_login_or_rigister.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
@@ -83,18 +84,7 @@ class _LoginPageState extends State<CreateAccountPage> {
                         labledText: "Phone Number",
                         textInputType: TextInputType.phone,
                         obscureText: false,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Enter phone number";
-                          }
-                          if (value.length < 9) {
-                            return "Too short";
-                          }
-                          if (value.length > 11) {
-                            return "Invalid number";
-                          }
-                          return null;
-                        },
+                        validator: InputValidator.phoneValidator,
                       ),
                     ),
                   ],
@@ -107,12 +97,7 @@ class _LoginPageState extends State<CreateAccountPage> {
                   textInputType: TextInputType.visiblePassword,
                   obscureText: true,
                   isPassword: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty)
-                      return 'Enter your password';
-                    if (value.length < 6) return 'Weak password';
-                    return null;
-                  },
+                  validator: InputValidator.passwordValidator,
                 ),
                 SizedBox(height: 16.h),
                 TextFormFeild(

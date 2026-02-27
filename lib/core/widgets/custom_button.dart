@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
+  final bool isLoading;
   final VoidCallback onPressed;
   final Color backgroundColor;
   final double width;
@@ -22,10 +23,16 @@ class CustomButton extends StatelessWidget {
     this.height = 65,
     this.borderRadius = 60,
     this.textStyle,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(color: AppColors.primaryColor),
+      );
+    }
     return ElevatedButton.icon(
       icon: icon != null
           ? SvgPicture.asset(

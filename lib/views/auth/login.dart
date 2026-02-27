@@ -1,5 +1,6 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/helper/app_image.dart';
+import 'package:cosmetics/core/helper/input_validator.dart';
 import 'package:cosmetics/core/helper/message_snack_bar.dart';
 import 'package:cosmetics/core/widgets/app_login_or_rigister.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
@@ -28,6 +29,9 @@ class _LoginViewState extends State<LoginView> {
         padding: EdgeInsets.all(14.r).copyWith(top: 48.h),
         child: Form(
           key: formKey,
+          /*   onChanged: () {
+            formKey.currentState!.validate();
+          }, */
           autovalidateMode: autovalidateMode,
           child: Column(
             children: [
@@ -68,18 +72,7 @@ class _LoginViewState extends State<LoginView> {
                       labledText: "Phone Number",
                       textInputType: TextInputType.phone,
                       obscureText: false,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Enter phone number";
-                        }
-                        if (value.length < 9) {
-                          return "Too short";
-                        }
-                        if (value.length > 11) {
-                          return "Invalid number";
-                        }
-                        return null;
-                      },
+                      validator: InputValidator.phoneValidator,
                     ),
                   ),
                 ],
@@ -92,14 +85,8 @@ class _LoginViewState extends State<LoginView> {
                 textInputType: TextInputType.visiblePassword,
                 obscureText: true,
                 isPassword: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty)
-                    return 'Enter your password';
-                  if (value.length < 6) return 'Weak password';
-                  return null;
-                },
+                validator: InputValidator.passwordValidator,
               ),
-              // SizedBox(height: 0.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -120,6 +107,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               SizedBox(height: 30.h),
               CustomButton(
+              //  isLoading: true,
                 text: 'Login',
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
