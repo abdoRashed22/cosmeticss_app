@@ -6,8 +6,8 @@ import 'package:cosmetics/views/auth/forget_password.dart';
 import 'package:cosmetics/views/auth/login.dart';
 import 'package:cosmetics/views/auth/succes_dialog.dart';
 import 'package:cosmetics/views/home/pages/cart.dart';
-import 'package:cosmetics/views/home/pages/category.dart';
-import 'package:cosmetics/views/home/pages/home.dart';
+import 'package:cosmetics/views/home/pages/categories/view.dart';
+import 'package:cosmetics/views/home/pages/home/view.dart';
 import 'package:cosmetics/views/home/main_view.dart';
 import 'package:cosmetics/views/home/pages/profile.dart';
 import 'package:cosmetics/views/home/widgets/pin_location.dart';
@@ -25,16 +25,16 @@ class AppRouter {
 
       case 'createAccount':
         return MaterialPageRoute(builder: (_) => CreateAccountPage());
-case 'createPassword':
+      case 'createPassword':
         return MaterialPageRoute(builder: (_) => CreatePassword());
       case 'main':
         return MaterialPageRoute(builder: (_) => MainView());
       case 'home':
-        return MaterialPageRoute(builder: (_) => Home());
+        return MaterialPageRoute(builder: (_) => HomePage());
       case 'cart':
         return MaterialPageRoute(builder: (_) => Cart());
       case 'category':
-        return MaterialPageRoute(builder: (_) => Category());
+        return MaterialPageRoute(builder: (_) => CategoryPage());
       case 'pinLocation':
         return MaterialPageRoute(builder: (_) => PinLocationView());
       case 'profile':

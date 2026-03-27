@@ -13,14 +13,14 @@ import 'package:cosmetics/views/home/widgets/pin_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 // علشان نستخدم الـ SharedPreferences في كل مكان في التطبيق بدون ما نحتاج نعمل instance منه كل مرة
 // late SharedPreferences prefs ;
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-//    prefs = await SharedPreferences.getInstance();
+  //    prefs = await SharedPreferences.getInstance();
   await Cach().init();
   runApp(const MyApp());
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
 
-          home: SplashPage(),
+          home: MainView(),
         );
       },
     );

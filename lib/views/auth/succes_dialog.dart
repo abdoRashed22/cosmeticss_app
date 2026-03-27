@@ -1,4 +1,5 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
+import 'package:cosmetics/core/helper/app_image.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/views/home/main_view.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,7 @@ class SuccesDialog extends StatelessWidget {
                     color: AppColors.backGroundColor,
                     shape: BoxShape.circle,
                   ),
-                  child: Lottie.asset(
-                    'assets/lotties/success.json',
-                    height: 100.h,
-                    width: 100.w,
-                    repeat: false,
-                  ),
+                  child: AppImage(image: 'success.json', fit: BoxFit.cover),
                 ),
                 SizedBox(height: 25.h),
                 Text(

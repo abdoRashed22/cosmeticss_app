@@ -1,7 +1,7 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/views/home/pages/cart.dart';
-import 'package:cosmetics/views/home/pages/category.dart';
-import 'package:cosmetics/views/home/pages/home.dart';
+import 'package:cosmetics/views/home/pages/categories/view.dart';
+import 'package:cosmetics/views/home/pages/home/view.dart';
 import 'package:cosmetics/views/home/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,10 +15,10 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  int currentIndex = 3;
+  int currentIndex = 2;
   final list = [
     _Models(
-      Home(),
+      HomePage(),
       'assets/icons/selected_home.svg',
       'assets/icons/un_selected_home.svg',
     ),
@@ -28,7 +28,7 @@ class _MainViewState extends State<MainView> {
       'assets/icons/un_selected_my_cart.svg',
     ),
     _Models(
-      Category(),
+      CategoryPage(),
       'assets/icons/selected_category.svg',
       'assets/icons/un_selected_categories.svg',
     ),
