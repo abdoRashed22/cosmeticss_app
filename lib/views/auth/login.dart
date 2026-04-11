@@ -1,11 +1,13 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/helper/app_image.dart';
+import 'package:cosmetics/core/helper/dio_helper.dart';
 import 'package:cosmetics/core/helper/input_validator.dart';
 import 'package:cosmetics/core/helper/message_snack_bar.dart';
 import 'package:cosmetics/core/widgets/app_login_or_rigister.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/core/widgets/custom_text_form_feild.dart';
-import 'package:cosmetics/core/widgets/drop_down.dart';
+import 'package:cosmetics/core/widgets/country_code.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,6 +23,34 @@ class _LoginViewState extends State<LoginView> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
+  String selectedCountryCode = '+20';
+
+  Future<void> sendData() async {
+  final resp = await DioHelper.sendData(
+    path: '/api/Auth/login',
+    data: {
+      "countryCode": selectedCountryCode,
+      "phoneNumber": phoneController.text.trim(),
+      "password": passwordController.text.trim(),
+    },
+  );
+
+  if (resp.isSuccess) {
+    showCustomSnackBar(
+      context: context,
+      message: 'Login Successful',
+    );
+
+    Navigator.pushNamed(context, 'main');
+  } else {
+    showCustomSnackBar(
+      context: context,
+      message: resp.message ?? 'Login Failed',
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +94,13 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(height: 25.h),
               Row(
                 children: [
-                  AppDropDown(),
+                  AppCountryCode(
+                    onCodeChanged: (code) {
+                      setState(() {
+                        selectedCountryCode = code;
+                      });
+                    },
+                  ),
                   Expanded(
                     child: TextFormFeild(
                       controller: phoneController,
@@ -107,17 +143,12 @@ class _LoginViewState extends State<LoginView> {
               ),
               SizedBox(height: 30.h),
               CustomButton(
-              //  isLoading: true,
+                //  isLoading: true,
                 text: 'Login',
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                    Navigator.pushNamed(context, 'main');
-
-                    showCustomSnackBar(
-                      context: context,
-                      message: 'Login Successful',
-                    );
+                    sendData(); // ← النجاح والـ navigate اتنقلوا لجوا sendData
                   } else {
                     setState(() => autovalidateMode = AutovalidateMode.always);
                   }

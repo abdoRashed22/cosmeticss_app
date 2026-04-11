@@ -4,7 +4,7 @@ import 'package:cosmetics/core/helper/message_snack_bar.dart';
 import 'package:cosmetics/core/widgets/app_login_or_rigister.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/core/widgets/custom_text_form_feild.dart';
-import 'package:cosmetics/core/widgets/drop_down.dart';
+import 'package:cosmetics/core/widgets/country_code.dart';
 import 'package:cosmetics/views/auth/verify_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,6 +24,7 @@ class _LoginPageState extends State<CreateAccountPage> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+String selectedCountryCode = '+20';
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +74,11 @@ class _LoginPageState extends State<CreateAccountPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    SizedBox(width: 95.w, child: AppDropDown()),
+                    SizedBox(width: 95.w, child: AppCountryCode(
+                      onCodeChanged: (code) {
+    setState(() => selectedCountryCode = code);
+  },
+                    )),
 
                     SizedBox(width: 8.w),
 
@@ -129,8 +134,10 @@ class _LoginPageState extends State<CreateAccountPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) =>
-                              VerifyCode(phone: phoneController.text,isFromForget: false,),
+                          builder: (_) => VerifyCode(
+                            phone: phoneController.text,
+                            isFromForget: false,
+                          ),
                         ),
                       );
                     } else {

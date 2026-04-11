@@ -10,10 +10,10 @@ void showCustomSnackBar({
   Duration duration = const Duration(seconds: 2),
 }) {
   final snackBar = SnackBar(
-    content: Text(
+    content: message.isNotEmpty ? Text(
       message,
       style: TextStyle(color: textColor, fontSize: 16.sp),
-    ),
+    ) : SizedBox.shrink(),
     backgroundColor: backgroundColor,
     duration: duration,
     behavior: SnackBarBehavior.floating,

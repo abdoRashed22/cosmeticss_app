@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
 
-          home: MainView(),
+          home: LoginView(),
         );
       },
     );

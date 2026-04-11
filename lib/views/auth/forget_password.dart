@@ -1,7 +1,7 @@
 import 'package:cosmetics/core/widgets/custom_back_button.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/core/widgets/custom_text_form_feild.dart';
-import 'package:cosmetics/core/widgets/drop_down.dart';
+import 'package:cosmetics/core/widgets/country_code.dart';
 import 'package:cosmetics/views/auth/verify_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,6 +16,7 @@ class ForgetPassword extends StatefulWidget {
 
 class _ForgetPasswordState extends State<ForgetPassword> {
   final phoneController = TextEditingController();
+  String selectedCountryCode = '+20';
   final formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
@@ -58,7 +59,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               SizedBox(height: 45.h),
               Row(
                 children: [
-                  AppDropDown(),
+                  AppCountryCode(
+                    onCodeChanged: (code) {
+    setState(() => selectedCountryCode = code);
+  },
+                  ),
                   Expanded(
                     child: TextFormFeild(
                       controller: phoneController,
