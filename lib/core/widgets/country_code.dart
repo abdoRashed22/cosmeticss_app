@@ -1,10 +1,13 @@
+import 'package:cosmetics/core/helper/dio_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+enum DataState { loading, failed, succes }
+
 class AppCountryCode extends StatefulWidget {
   const AppCountryCode({super.key, required this.onCodeChanged});
-final ValueChanged<String> onCodeChanged;
+  final ValueChanged<String> onCodeChanged;
   @override
   State<AppCountryCode> createState() => _AppCountryCodeState();
 }
@@ -17,9 +20,36 @@ class _AppCountryCodeState extends State<AppCountryCode> {
     getData();
   }
 
-  List<CountryModel>? countriesList;
+  List<CountryModel>? list;
 
+  DataState state = DataState.loading;
   Future<void> getData() async {
+    state = DataState.loading;
+    setState(() {});
+
+    final resp = await DioHelper.getData(path: "api/Countries");
+
+    print(resp.data);
+
+    if (resp.isSuccess) {
+      list = (resp.data as List<dynamic>)
+          .map((e) => CountryModel.fromJson(e))
+          .toList();
+
+      if (list!.isNotEmpty) {
+        selectedCode = list!.first.code;
+        widget.onCodeChanged(selectedCode!);
+      }
+
+      state = DataState.succes;
+    } else {
+      state = DataState.failed;
+    }
+
+    setState(() {});
+  }
+
+  /*Future<void> getData() async {
     final resp = await Dio().get('https://cosmatics.growfet.com/api/Countries');
     final data = CountriesData.fromJson({'list': resp.data}).list;
 
@@ -33,7 +63,7 @@ class _AppCountryCodeState extends State<AppCountryCode> {
       }
        widget.onCodeChanged(selectedCode!);
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -47,36 +77,42 @@ class _AppCountryCodeState extends State<AppCountryCode> {
             borderRadius: BorderRadius.circular(8.r),
             border: Border.all(color: Colors.grey, width: 1.w),
           ),
-          child: countriesList == null
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: const Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: .5,
-                      color: Colors.red,
-                      backgroundColor: Colors.grey,
-                    ),
+          child: state == DataState.loading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: .5,
+                    color: Colors.red,
+                    backgroundColor: Colors.grey,
                   ),
+                )
+              : state == DataState.failed
+              ? IconButton(
+                  onPressed: () {
+                    state = DataState.loading;
+                    setState(() {});
+                    getData();
+                  },
+                  icon: const Icon(Icons.replay),
                 )
               : DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
+                    isExpanded: true,
                     value: selectedCode,
                     icon: Icon(Icons.keyboard_arrow_down, size: 20.sp),
-                    items: countriesList!
-                        .map(
-                          (e) => DropdownMenuItem(
-                            value: e.code,
-                            child: Text(e.code),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (val) {
-                      if (val != null) {
-                        setState(() {
-                          selectedCode = val;
-                           widget.onCodeChanged(val);
-                        });
-                      }
+                    items: list!.map((country) {
+                      return DropdownMenuItem<String>(
+                        value: country.code,
+                        child: Text(country.code),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (value == null) return;
+
+                      setState(() {
+                        selectedCode = value;
+                      });
+
+                      widget.onCodeChanged(value);
                     },
                   ),
                 ),
@@ -87,7 +123,7 @@ class _AppCountryCodeState extends State<AppCountryCode> {
   }
 }
 
-class CountriesData {
+/*class CountriesData {
   CountriesData();
   late final List<CountryModel> list;
 
@@ -96,19 +132,18 @@ class CountriesData {
       json['list'] ?? [],
     ).map((e) => CountryModel.fromJson(e)).toList();
   }
-}
+}*/
 
 class CountryModel {
-  CountryModel();
   late final int id;
   late final String code;
   late final String nameEn;
   late final String nameAr;
-
+  //named constructor
   CountryModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'] ?? 0;
-    code = json['code'] ?? '';
-    nameEn = json['name_en'] ?? '';
-    nameAr = json['name_ar'] ?? '';
+    id = json['id'];
+    code = json['code'];
+    nameEn = json['name_en'];
+    nameAr = json['name_ar'];
   }
 }

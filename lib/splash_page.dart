@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cosmetics/core/helper/cach.dart';
+import 'package:cosmetics/core/helper/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,12 +15,15 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    // ركز هلي ال key name
 
     Future.delayed(const Duration(seconds: 3), () {
-      Cach.getIsFirstTime()
-          ? Navigator.pushReplacementNamed(context, 'onBoarding')
-          : Navigator.pushReplacementNamed(context, 'login');
+      if (Cach.getIsFirstTime()) {
+        Navigator.pushReplacementNamed(context, 'onBoarding');
+      } else if (Cach.IsAuth) {
+        Navigator.pushReplacementNamed(context, 'main');
+      } else {
+        Navigator.pushReplacementNamed(context, 'login');
+      }
     });
   }
 
@@ -32,20 +35,11 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Bounce(
-              duration: Duration(seconds: 2),
-              child: SvgPicture.asset(
-                'assets/icons/splash.svg',
-                width: 200.w,
-                height: 200.h,
-              ),
+              duration: const Duration(seconds: 2),
+              child: AppImage(image: 'splash.svg', width: 200.w, height: 200.h),
             ),
-            SizedBox(height: 20),
-
-            SvgPicture.asset(
-              'assets/icons/axon.svg',
-              width: 120.w,
-              height: 46.h,
-            ),
+            SizedBox(height: 20.h),
+            AppImage(image: 'axon.svg', width: 120.w, height: 46.h),
           ],
         ),
       ),

@@ -10,10 +10,12 @@ void showCustomSnackBar({
   Duration duration = const Duration(seconds: 2),
 }) {
   final snackBar = SnackBar(
-    content: message.isNotEmpty ? Text(
-      message,
-      style: TextStyle(color: textColor, fontSize: 16.sp),
-    ) : SizedBox.shrink(),
+    content: message.isNotEmpty
+        ? Text(
+            message,
+            style: TextStyle(color: textColor, fontSize: 16.sp),
+          )
+        : SizedBox.shrink(),
     backgroundColor: backgroundColor,
     duration: duration,
     behavior: SnackBarBehavior.floating,
@@ -23,12 +25,14 @@ void showCustomSnackBar({
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
-/* void showMsg(String msg) {
-  if(msg.isNotEmpty){
- ScaffoldMessenger.of(
-    navigatorKey.currentContext,
-  ).showSnackBar(SnackBar(content: Text(msg)));
+void showMsg(String? msg, {bool isError = false}) {
+  if (msg != null && msg.isNotEmpty) {
+    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        backgroundColor: isError ? Colors.red : Colors.green,
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
- 
 }
- */
