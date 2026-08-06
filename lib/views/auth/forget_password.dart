@@ -1,3 +1,5 @@
+import 'package:cosmetics/core/helper/dio_helper.dart';
+import 'package:cosmetics/core/helper/message_snack_bar.dart';
 import 'package:cosmetics/core/widgets/custom_back_button.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/core/widgets/custom_text_form_feild.dart';
@@ -17,7 +19,7 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   final phoneController = TextEditingController();
   String selectedCountryCode = '+20';
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   @override
@@ -26,7 +28,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Form(
-          key: formKey,
+          key: _formKey,
           autovalidateMode: autovalidateMode,
 
           child: Column(
@@ -61,8 +63,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 children: [
                   AppCountryCode(
                     onCodeChanged: (code) {
-    setState(() => selectedCountryCode = code);
-  },
+                      setState(() => selectedCountryCode = code);
+                    },
                   ),
                   Expanded(
                     child: TextFormFeild(
@@ -90,9 +92,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               SizedBox(height: 55.h),
               CustomButton(
                 text: 'Next',
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
+                onPressed: () async {
+                  final resp = await DioHelper.sendData(
+                    path: "/api/Auth/forgot-password",
+                    data: {
+                      "countryCode": selectedCountryCode,
+                      "phoneNumber": phoneController.text,
+                    },
+                  );
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -103,6 +112,20 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   } else {
                     setState(() => autovalidateMode = AutovalidateMode.always);
                   }
+                  if (resp.isSuccess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => VerifyCode(
+                          phone: phoneController.text,
+                          isFromForget: true,
+                        ),
+                      ),
+                    );
+                  } else
+                    () {
+                      showMsg(resp.message, isError: true);
+                    };
                 },
               ),
             ],

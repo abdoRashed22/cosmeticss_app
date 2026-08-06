@@ -30,6 +30,7 @@ class DioHelper {
       print(e.response?.data);
       if (e.response?.data != null && e.response?.data is Map) {
         log(e.response?.data['message']);
+        //  log(e.response?.data["CountryCode"][0] ?? "no country code");
         print(e.response?.statusCode);
       }
       if (e.response?.statusCode == 401) {
@@ -87,6 +88,6 @@ class CustomResponse {
   final dynamic data;
 
   CustomResponse({required this.isSuccess, this.data}) {
-    message = data is Map ? data['message'] : null;
+    message = data is Map ? data['message'] ?? data["CountryCode"][0] : null;
   }
 }
