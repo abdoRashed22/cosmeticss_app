@@ -4,13 +4,14 @@ class CategoryItem extends StatelessWidget {
   final String name;
   final String image;
   final VoidCallback onTap;
-final CategoryModel model;
+  final CategoryModel model;
 
   const CategoryItem({
     super.key,
     required this.name,
     required this.image,
-    required this.onTap, required this.model,
+    required this.onTap,
+    required this.model,
   });
 
   @override
@@ -19,19 +20,11 @@ final CategoryModel model;
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(10.r),
-          child: Image.asset(
-            image,
+          child: AppImage(
+            image: image,
             width: 70.w,
             height: 65.h,
             fit: BoxFit.cover,
-            
-            // إضافة معالج أخطاء في حال الصورة مش موجودة
-            errorBuilder: (context, error, stackTrace) => Container(
-              width: 70.w,
-              height: 65.h,
-              color: Colors.grey[200],
-              child: Icon(Icons.image_not_supported, color: Colors.grey),
-            ),
           ),
         ),
         SizedBox(width: 15.w),

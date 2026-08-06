@@ -1,5 +1,7 @@
+import 'package:cosmetics/core/helper/app_image.dart';
+import 'package:cosmetics/core/helper/dio_helper.dart';
+import 'package:cosmetics/core/widgets/country_code.dart';
 import 'package:cosmetics/core/widgets/search_input.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,19 +15,23 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
- /*  final List<Map<String, dynamic>> categories = [
-    {"name": "Bundles", "image": "assets/images/bundles.png"},
-    {"name": "Perfumes", "image": "assets/images/perfumes.png"},
-    {"name": "Makeup", "image": "assets/images/Makeup.png"},
-    {"name": "Bundles Care", "image": "assets/images/Skin Care.png"},
-    {"name": "Gifts", "image": "assets/images/gifts.png"},
-  ]; */
   List<CategoryModel> categoriesList = [];
+  DataState state = DataState.loading;
+
   Future<void> getData() async {
-    final resp = await Dio().get(
-      'https://cosmatics.growfet.com/api/Categories',
-    );
-    categoriesList = CategoriesData.fromJsonList(resp.data).list;
+    state = DataState.loading;
+    setState(() {});
+
+    final resp = await DioHelper.getData(path: '/api/Categories');
+
+    if (resp.isSuccess) {
+      categoriesList = (resp.data as List<dynamic>)
+          .map((e) => CategoryModel.fromJson(e))
+          .toList();
+      state = DataState.succes;
+    } else {
+      state = DataState.failed;
+    }
 
     setState(() {});
   }
@@ -58,13 +64,29 @@ class _CategoryPageState extends State<CategoryPage> {
             SizedBox(height: 20.h),
             SearchInput(onSearchTap: () {}),
             SizedBox(height: 25.h),
-            categoriesList == null
-                ? Center(child: CircularProgressIndicator())
+            state == DataState.loading
+                ? const Center(child: CircularProgressIndicator())
+                : state == DataState.failed
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Failed to load categories'),
+                        SizedBox(height: 12.h),
+                        TextButton(
+                          onPressed: () {
+                            state = DataState.loading;
+                            setState(() {});
+                            getData();
+                          },
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    ),
+                  )
                 : Expanded(
                     child: ListView.separated(
-                      itemCount: 
-                        
-                           categoriesList.length,
+                      itemCount: categoriesList.length,
                       separatorBuilder: (_, __) => Padding(
                         padding: EdgeInsets.symmetric(vertical: 20.h),
                         child: Divider(
@@ -73,14 +95,12 @@ class _CategoryPageState extends State<CategoryPage> {
                         ),
                       ),
                       itemBuilder: (context, index) {
-                        final model = 
-                           
-                             categoriesList[index];
+                        final model = categoriesList[index];
 
                         return CategoryItem(
                           model: model,
                           name: model.title,
-                          image: model.imageUrl, 
+                          image: model.imageUrl,
                           onTap: () => print("Tapped on ${model.title}"),
                         );
                       },
@@ -96,14 +116,16 @@ class _CategoryPageState extends State<CategoryPage> {
 class CategoryModel {
   late final int id;
   late final String title;
+  late final String titleAr;
   late String imageUrl;
 
   CategoryModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? 0;
-    title = json['title'] ?? json['name'] ?? '';
-    imageUrl = json['imageUrl'] ?? "";
-    final raw = json['imageUrl'] ?? json['image'] ?? '';
-    imageUrl = raw.isEmpty ? 'assets/images/bundles.png' : raw;
+    title = json['title_en'] ?? json['title'] ?? json['name'] ?? '';
+    // titleAr job: keep the Arabic title for future use (commented out to hide it)
+    titleAr = json['title_ar'] ?? '';
+    imageUrl = json['image_url'] ?? json['imageUrl'] ?? "";
+    imageUrl = imageUrl.isEmpty ? 'assets/images/bundles.png' : imageUrl;
   }
 }
 
