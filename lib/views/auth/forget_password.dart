@@ -93,6 +93,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               CustomButton(
                 text: 'Next',
                 onPressed: () async {
+                  if (!_formKey.currentState!.validate()) {
+                    setState(() => autovalidateMode = AutovalidateMode.always);
+                    return;
+                  }
+                  _formKey.currentState!.save();
                   final resp = await DioHelper.sendData(
                     path: "/api/Auth/forgot-password",
                     data: {
@@ -100,32 +105,20 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       "phoneNumber": phoneController.text,
                     },
                   );
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            VerifyCode(phone: '', isFromForget: true),
-                      ),
-                    );
-                  } else {
-                    setState(() => autovalidateMode = AutovalidateMode.always);
-                  }
                   if (resp.isSuccess) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (_) => VerifyCode(
                           phone: phoneController.text,
+                          countryCode: selectedCountryCode,
                           isFromForget: true,
                         ),
                       ),
                     );
-                  } else
-                    () {
-                      showMsg(resp.message, isError: true);
-                    };
+                  } else {
+                    showMsg(resp.message, isError: true);
+                  }
                 },
               ),
             ],

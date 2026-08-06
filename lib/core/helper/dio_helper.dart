@@ -84,10 +84,21 @@ class DioHelper {
 
 class CustomResponse {
   final bool isSuccess;
-  late final String? message;
   final dynamic data;
+  late final String? message;
 
   CustomResponse({required this.isSuccess, this.data}) {
-    message = data is Map ? data['message'] ?? data["CountryCode"][0] : null;
+    if (data is Map<String, dynamic>) {
+      if (data['message'] != null) {
+        message = data['message'].toString();
+      } else if (data['CountryCode'] is List &&
+          (data['CountryCode'] as List).isNotEmpty) {
+        message = data['CountryCode'][0].toString();
+      } else {
+        message = null;
+      }
+    } else {
+      message = null;
+    }
   }
 }

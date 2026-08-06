@@ -24,7 +24,7 @@ class _LoginPageState extends State<CreateAccountPage> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-String selectedCountryCode = '+20';
+  String selectedCountryCode = '+20';
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +74,14 @@ String selectedCountryCode = '+20';
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    SizedBox(width: 95.w, child: AppCountryCode(
-                      onCodeChanged: (code) {
-    setState(() => selectedCountryCode = code);
-  },
-                    )),
+                    SizedBox(
+                      width: 95.w,
+                      child: AppCountryCode(
+                        onCodeChanged: (code) {
+                          setState(() => selectedCountryCode = code);
+                        },
+                      ),
+                    ),
 
                     SizedBox(width: 8.w),
 
@@ -136,6 +139,7 @@ String selectedCountryCode = '+20';
                         MaterialPageRoute(
                           builder: (_) => VerifyCode(
                             phone: phoneController.text,
+                            countryCode: selectedCountryCode,
                             isFromForget: false,
                           ),
                         ),

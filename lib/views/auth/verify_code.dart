@@ -1,4 +1,7 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
+import 'package:cosmetics/core/helper/dio_helper.dart';
+import 'package:cosmetics/core/helper/message_snack_bar.dart';
+import 'package:cosmetics/core/widgets/country_code.dart';
 import 'package:cosmetics/core/widgets/custom_back_button.dart';
 import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/core/widgets/custom_pin_code.dart';
@@ -11,9 +14,15 @@ import 'package:flutter_svg/svg.dart';
 
 class VerifyCode extends StatefulWidget {
   final String phone;
+  final String countryCode;
   final bool isFromForget;
 
-  const VerifyCode({super.key, required this.phone, this.isFromForget = false});
+  const VerifyCode({
+    super.key,
+    required this.phone,
+    this.countryCode = '+20',
+    this.isFromForget = false,
+  });
 
   @override
   State<VerifyCode> createState() => _VerifyCodeState();
@@ -21,6 +30,53 @@ class VerifyCode extends StatefulWidget {
 
 class _VerifyCodeState extends State<VerifyCode> {
   bool canResend = false;
+  String otpCode = '';
+  DataState? state;
+
+  Future<void> verifyOtp() async {
+    if (otpCode.length != 4) {
+      showMsg('Please enter the 4-digit code', isError: true);
+      return;
+    }
+    setState(() => state = DataState.loading);
+    final resp = await DioHelper.sendData(
+      path: '/api/Auth/verify-otp',
+      data: {
+        "countryCode": widget.countryCode,
+        "phoneNumber": widget.phone,
+        "otpCode": otpCode,
+      },
+    );
+    if (!mounted) return;
+    setState(
+      () => state = resp.isSuccess ? DataState.succes : DataState.failed,
+    );
+
+    if (resp.isSuccess) {
+      if (widget.isFromForget) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => CreatePassword(isFromForget: true)),
+        );
+      } else {
+        showCustomSnackBar(
+          context: context,
+          message: 'OTP verified successfully',
+        );
+        showDialog(
+          context: context,
+          builder: (_) => SuccesDialog(
+            title: 'Congratulations',
+            message: 'Your account has been created successfully',
+            textButton: 'Go to Login',
+            isFromForget: false,
+          ),
+        );
+      }
+    } else {
+      showMsg(resp.message ?? 'Invalid code, please try again', isError: true);
+    }
+  }
 
   /* @override
   void initState() {
@@ -87,7 +143,8 @@ class _VerifyCodeState extends State<VerifyCode> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: 'We just sent a 4-digit verification code to\n+20 ',
+                      text:
+                          'We just sent a 4-digit verification code to\n${widget.countryCode} ',
                       style: TextStyle(
                         fontSize: 14.sp,
                         height: 1.5,
@@ -131,9 +188,9 @@ class _VerifyCodeState extends State<VerifyCode> {
                   ),
                 ],
               ),
-              CustomPinCode(),
+              CustomPinCode(onChanged: (value) => otpCode = value),
               SizedBox(height: 43.h),
-              ResendOtp(),
+              ResendOtp(phone: widget.phone, countryCode: widget.countryCode),
 
               /* GestureDetector(
                     onTap: canResend ? () => startTimer() : null,
@@ -154,26 +211,8 @@ class _VerifyCodeState extends State<VerifyCode> {
               SizedBox(height: 120.h),
               CustomButton(
                 text: 'Done',
-                onPressed: () {
-                  if (widget.isFromForget) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => CreatePassword(isFromForget: true),
-                      ),
-                    );
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: (_) => SuccesDialog(
-                        title: 'Congratulations',
-                        message: 'Your account has been created successfully',
-                        textButton: 'Go to Login',
-                        isFromForget: false,
-                      ),
-                    );
-                  }
-                },
+                isLoading: state == DataState.loading,
+                onPressed: verifyOtp,
               ),
 
               SizedBox(height: 30.h),

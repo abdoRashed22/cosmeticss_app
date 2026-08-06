@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CustomPinCode extends StatelessWidget {
-  const CustomPinCode({super.key});
+  const CustomPinCode({super.key, this.onChanged});
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class CustomPinCode extends StatelessWidget {
       ),
       animationDuration: const Duration(milliseconds: 300),
       enableActiveFill: true,
-      onChanged: (value) {},
+      onChanged: onChanged,
     );
   }
 }

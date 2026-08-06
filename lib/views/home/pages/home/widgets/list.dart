@@ -19,18 +19,20 @@ class _ListState extends State<_List> {
   }
 
   Future<void> getData() async {
-  try {
-    final resp = await Dio().get('https://cosmatics.growfet.com/api/Products');
-    if (!mounted) return;
-    setState(() {
-      productsList = ProductsData.fromJsonList(resp.data).list;
-      isLoading = false;
-    });
-  } catch (e) {
-    if (!mounted) return;
-    setState(() => isLoading = false);
+    try {
+      final resp = await Dio().get(
+        'https://cosmatics.growfet.com/api/Products',
+      );
+      if (!mounted) return;
+      setState(() {
+        productsList = ProductsData.fromJsonList(resp.data).list;
+        isLoading = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => isLoading = false);
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class _ListState extends State<_List> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.title?? "Most Popular",
+          widget.title ?? "Most Popular",
           style: TextStyle(
             color: const Color(0xff434C6D),
             fontSize: 16.sp,
@@ -47,7 +49,7 @@ class _ListState extends State<_List> {
         ),
 
         SizedBox(height: 16.h),
-        isLoading 
+        isLoading
             ? const Center(child: CircularProgressIndicator())
             : GridView.builder(
                 shrinkWrap: true,
@@ -60,9 +62,7 @@ class _ListState extends State<_List> {
                   childAspectRatio: 176 / 237,
                 ),
                 itemBuilder: (context, index) {
-                  return ProductItem(
-                    product: productsList[index],
-                  );
+                  return ProductItem(product: productsList[index]);
                 },
                 itemCount: productsList.length,
               ),
