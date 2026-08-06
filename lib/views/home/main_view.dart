@@ -1,11 +1,14 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
+import 'package:cosmetics/core/helper/cach.dart';
+import 'package:cosmetics/core/helper/dio_helper.dart';
+import 'package:cosmetics/views/auth/login.dart';
 import 'package:cosmetics/views/home/pages/cart.dart';
 import 'package:cosmetics/views/home/pages/categories/view.dart';
 import 'package:cosmetics/views/home/pages/home/view.dart';
 import 'package:cosmetics/views/home/pages/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -16,6 +19,26 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   int currentIndex = 2;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    final resp = await DioHelper.getData(path: "/api/Auth/profile");
+    if (resp.isSuccess) {
+      final data = UserModel.fromJson(resp.data);
+      await Cach.saveUserData(model: data);
+    } else {
+      print(resp.message);
+    }
+    if (!mounted)
+      return; //best practice to check if the widget is still mounted before calling setState
+    setState(() {});
+  }
+
   final list = [
     _Models(
       HomePage(),
@@ -39,27 +62,11 @@ class _MainViewState extends State<MainView> {
     ),
   ];
 
-  //final screens = [Home(), Cart(), Category(), Profile()];
-
-  /* final selectedIcons = [
-    'assets/icons/selected_home.svg',
-    'assets/icons/selected_cart.svg',
-    'assets/icons/selected_category.svg',
-    'assets/icons/selected_profile.svg',
-  ];
-
-  final unselectedIcons = [
-    'assets/icons/un_selected_home.svg',
-    'assets/icons/un_selected_my_cart.svg',
-    'assets/icons/un_selected_categories.svg',
-    'assets/icons/un_selected_profile.svg',
-  ];*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
+      body: list[currentIndex].page,
+      bottomNavigationBar: Container(
         margin: EdgeInsets.symmetric(horizontal: 13.w, vertical: 20.h),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -70,14 +77,12 @@ class _MainViewState extends State<MainView> {
               offset: const Offset(4, 4),
               blurRadius: 4,
               blurStyle: BlurStyle.outer,
-              spreadRadius: 0,
               color: Colors.black.withValues(alpha: .1),
             ),
             BoxShadow(
               offset: const Offset(-4, -4),
               blurRadius: 6,
               blurStyle: BlurStyle.outer,
-              spreadRadius: 0,
               color: Colors.black.withValues(alpha: .1),
             ),
           ],
@@ -109,14 +114,14 @@ class _MainViewState extends State<MainView> {
           }),
         ),
       ),
-      body: list[currentIndex].page,
-      //bottomNavigationBar: SizedBox(height: 40.h),
     );
   }
 }
 
 class _Models {
-  final String selectedIcons, unselectedIcons;
+  final String selectedIcons;
+  final String unselectedIcons;
   final Widget page;
+
   _Models(this.page, this.selectedIcons, this.unselectedIcons);
 }

@@ -1,42 +1,24 @@
+import 'dart:developer';
+
+import 'package:cosmetics/core/helper/cach.dart';
+import 'package:cosmetics/core/helper/message_snack_bar.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class DioHelper {
   static const _baseUrl = "https://cosmatics.growfet.com/";
-  static const _headers = {
+  static final _headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   };
   static final dio = Dio(BaseOptions(baseUrl: _baseUrl, headers: _headers));
 
-  /*static Future<CustomResponse> getData({
-    String path = "",
-      Map<String, dynamic>? queryParameters,
-  }) async {
-    try {
-      final resp = await dio.get(path);
-      Map<String, dynamic> data;
-      if (resp.data is List) {
-        data = {'list': resp.data};
-      } else {
-        data = resp.data;
-      }
-      return CustomResponse(isSuccess: true, data: data);
-    } on DioException catch (ex) {
-      return CustomResponse(
-        isSuccess: false,
-        message: ex.response?.data?['message'] ?? 'Something went wrong',
-      );
-    }
-  }*/
-
   static Future<CustomResponse> sendData({
     required String path,
     Map<String, dynamic>? data,
   }) async {
-    //final token =
-    //  "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxODMwNiIsInVuaXF1ZV9uYW1lIjoiYWJkZWxyYWhtYW4yMDA0IiwiZW1haWwiOiJhYmRlbHJhaG1hbi4yMjIyMDA0QGdtYWlsLmNvbSIsInJvbGUiOiJDdXN0b21lciIsIm5iZiI6MTc4NTQ4ODEzNCwiZXhwIjoxNzg1NDg4NzM0LCJpYXQiOjE3ODU0ODgxMzQsImlzcyI6IkNvc21hdGljc0FwaSIsImF1ZCI6IkNvc21hdGljc1VzZXJzIn0.ehFZkKiPpzWfMg3QeAjPBEbtXoA4iz-ZMzi0WV7D4c35f1YDFXC4vaxCApO2qkakG5wCNLJODanMAPYCONUC2A";
-
-    //  dio.options.headers.addAll({'Authorization': 'Bearer $token'});
+    dio.options.headers.addAll({"Authorization": 'Bearer  ${Cach.token}'});
+    log("test headers ${dio.options.headers}");
     try {
       final resp = await dio.post(path, data: data);
       print(resp.data);
@@ -47,10 +29,22 @@ class DioHelper {
     } on DioException catch (e) {
       print(e.response?.data);
       if (e.response?.data != null && e.response?.data is Map) {
-        print(e.response?.data['message']);
+        log(e.response?.data['message']);
         print(e.response?.statusCode);
       }
-      return CustomResponse(isSuccess: false);
+      if (e.response?.statusCode == 401) {
+        Cach.logout();
+        log("test logout");
+        showCustomSnackBar(
+          context: navigatorKey.currentContext!,
+          message: 'Session expired. Please log in again.',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+
+        return CustomResponse(isSuccess: false);
+      }
+      return CustomResponse(isSuccess: false, data: e.response?.data);
     }
   }
 
@@ -58,10 +52,8 @@ class DioHelper {
     required String path,
     Map<String, dynamic>? queryParameters,
   }) async {
-    //final token =
-    //  "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxODMwNiIsInVuaXF1ZV9uYW1lIjoiYWJkZWxyYWhtYW4yMDA0IiwiZW1haWwiOiJhYmRlbHJhaG1hbi4yMjIyMDA0QGdtYWlsLmNvbSIsInJvbGUiOiJDdXN0b21lciIsIm5iZiI6MTc4NTQ4ODEzNCwiZXhwIjoxNzg1NDg4NzM0LCJpYXQiOjE3ODU0ODgxMzQsImlzcyI6IkNvc21hdGljc0FwaSIsImF1ZCI6IkNvc21hdGljc1VzZXJzIn0.ehFZkKiPpzWfMg3QeAjPBEbtXoA4iz-ZMzi0WV7D4c35f1YDFXC4vaxCApO2qkakG5wCNLJODanMAPYCONUC2A";
-
-    //  dio.options.headers.addAll({'Authorization': 'Bearer $token'});
+    dio.options.headers.addAll({"Authorization": 'Bearer  ${Cach.token}'});
+    log("test headers ${Cach.token}");
     try {
       final resp = await dio.get(path, data: queryParameters);
 
@@ -70,7 +62,19 @@ class DioHelper {
       }
       return CustomResponse(isSuccess: false);
     } on DioException catch (e) {
-      print(e.response?.data);
+      log(e.response?.data);
+      if (e.response?.statusCode == 401) {
+        Cach.logout();
+        log("test logout");
+        showCustomSnackBar(
+          context: navigatorKey.currentContext!,
+          message: 'Session expired. Please log in again.',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+
+        return CustomResponse(isSuccess: false);
+      }
 
       return CustomResponse(isSuccess: false, data: e.response?.data);
     }

@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(seconds: 3), () {
       if (Cach.getIsFirstTime()) {
         Navigator.pushReplacementNamed(context, 'onBoarding');
-      } else if (Cach.IsAuth) {
+      } else if (Cach.isAuth) {
         Navigator.pushReplacementNamed(context, 'main');
       } else {
         Navigator.pushReplacementNamed(context, 'login');

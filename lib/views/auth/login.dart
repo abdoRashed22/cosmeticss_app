@@ -40,7 +40,7 @@ class _LoginViewState extends State<LoginView> {
       state = DataState.succes;
       final model = UserData.fromJson(resp.data);
       print(model.user.email);
-      await Cach.saveUserData(model);
+      await Cach.saveUserData(data: model);
       showCustomSnackBar(context: context, message: 'Login Successful');
 
       Navigator.pushNamed(context, 'main');

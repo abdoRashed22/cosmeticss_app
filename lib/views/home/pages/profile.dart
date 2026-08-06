@@ -1,3 +1,4 @@
+import 'package:cosmetics/core/helper/cach.dart';
 import 'package:cosmetics/views/auth/login.dart';
 import 'package:cosmetics/views/home/widgets/profile_tile.dart';
 import 'package:flutter/material.dart';
@@ -32,16 +33,14 @@ class Profile extends StatelessWidget {
                   radius: 46.r,
                   child: CircleAvatar(
                     radius: 46.r,
-                    backgroundImage: const AssetImage(
-                      "assets/images/profile1.png",
-                    ),
+                    backgroundImage: NetworkImage(Cach.getImage()),
                   ),
                 ),
 
                 SizedBox(height: 16.h),
 
                 Text(
-                  "Abdelrahman Rashed",
+                  Cach.getName(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
@@ -65,14 +64,7 @@ class Profile extends StatelessWidget {
                   title: "Edit Info",
                 ),
                 ProfileTile(title: "Order History"),
-                ProfileTile(title: "Order History"),
-                ProfileTile(title: "Order History"),
-                ProfileTile(title: "Order History"),
-                ProfileTile(title: "Order History"),
-                ProfileTile(title: "Order History"),
-                ProfileTile(title: "Order History"),
-                ProfileTile(title: "Order History"),
-                ProfileTile(title: "Order History"),
+
                 ProfileTile(title: "wallet"),
                 ProfileTile(
                   /*  icon: SvgPicture.asset(
@@ -91,8 +83,8 @@ class Profile extends StatelessWidget {
                     height: 22.h,
                   ),*/
                   title: "Logout",
+
                   // isLogOut: true,
-                  color: const Color(0xffCD0F0F),
                   destPage: const LoginView(),
                 ),
               ],
