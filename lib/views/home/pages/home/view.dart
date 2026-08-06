@@ -1,7 +1,7 @@
 import 'package:cosmetics/core/helper/app_image.dart';
+import 'package:cosmetics/core/helper/dio_helper.dart';
 import 'package:cosmetics/core/widgets/search_input.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -69,7 +69,7 @@ class ProductItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.r),
 
               child: AppImage(
-                image: 'pro1.jpg',
+                image: product.imageUrl,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -77,7 +77,7 @@ class ProductItem extends StatelessWidget {
           ),
           SizedBox(height: 11.h),
           Text(
-            product.name,
+            product.name(context),
             style: TextStyle(
               color: const Color(0xff434C6D),
               fontSize: 14.sp,

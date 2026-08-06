@@ -13,7 +13,7 @@ class _OffersState extends State<_Offers> {
 
   Future<void> getData() async {
     try {
-      final resp = await Dio().get('https://cosmatics.growfet.com/api/Sliders');
+      final resp = await DioHelper.getData(path: '/api/Sliders');
       if (!mounted) return;
       setState(() {
         list = OffersData.fromJsonList(resp.data).list;
@@ -36,9 +36,6 @@ class _OffersState extends State<_Offers> {
     if (list == null || list!.isEmpty) {
       return const SizedBox.shrink();
     }
-    if (isLoading) {
-      return Center(child: const CircularProgressIndicator());
-    }
 
     return CarouselSlider(
       options: CarouselOptions(
@@ -48,10 +45,9 @@ class _OffersState extends State<_Offers> {
         //padEnds: true,
         viewportFraction: 1,
       ),
-      items: List.generate(
-        list!.length,
-
-        (index) => Padding(
+      items: List.generate(list!.length, (index) {
+        final offer = list![index];
+        return Padding(
           padding: const EdgeInsetsDirectional.only(end: 12.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20.r),
@@ -59,7 +55,7 @@ class _OffersState extends State<_Offers> {
               alignment: Alignment.center,
               children: [
                 AppImage(
-                  image: 'layer1.png',
+                  image: offer.imageUrl,
                   height: 320.h,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -77,7 +73,7 @@ class _OffersState extends State<_Offers> {
                         children: [
                           // SizedBox(height: 30),
                           Text(
-                            "${list![index].discountPercent}% OFF DISCOUNT\nCUPON CODE : ${list![index].couponCode}",
+                            "${offer.discountPercent}% OFF DISCOUNT\nCUPON CODE : ${offer.couponCode}",
                             style: TextStyle(
                               color: const Color(0xff62322D),
                               fontSize: 16.sp,
@@ -98,11 +94,13 @@ class _OffersState extends State<_Offers> {
                             height: 55.h,
                           ),
                           Text(
-                            "${list![index].descriptionTitle1}\n${list![index].descriptionTitle2}",
+                            "${offer.descriptionTitle1En}\n${offer.descriptionTitle2En}",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: const Color(0xff434C6D),
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
+
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ],
@@ -113,8 +111,8 @@ class _OffersState extends State<_Offers> {
               ],
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
@@ -122,20 +120,28 @@ class _OffersState extends State<_Offers> {
 class OffersData {
   late List<OfferModels> list;
   OffersData.fromJsonList(List<dynamic> json) {
-    list = json.map((e) => OfferModels.fromJson(e)).toList();
+    list = json
+        .whereType<Map>()
+        .map((e) => OfferModels.fromJson(e.cast<String, dynamic>()))
+        .toList();
   }
 }
 
 class OfferModels {
-  late final String couponCode, descriptionTitle1, descriptionTitle2, imageUrl;
-  late num discountPercent;
+  late final String couponCode, imageUrl;
+  late final String descriptionTitle1En, descriptionTitle1Ar;
+  late final String descriptionTitle2En, descriptionTitle2Ar;
+  late final num discountPercent;
   late final int productId;
+
   OfferModels.fromJson(Map<String, dynamic> json) {
-    couponCode = json['couponCode'] ?? "";
-    descriptionTitle1 = json['descriptionTitle1'] ?? "";
-    descriptionTitle2 = json['descriptionTitle2'] ?? "";
-    imageUrl = json['imageUrl'] ?? "";
-    discountPercent = json['discountPercent'] ?? 0;
+    couponCode = json['coupon_code'] ?? '';
+    imageUrl = json['image_url'] ?? '';
+    descriptionTitle1En = json['description_title1_en'] ?? '';
+    descriptionTitle1Ar = json['description_title1_ar'] ?? '';
+    descriptionTitle2En = json['description_title2_en'] ?? '';
+    descriptionTitle2Ar = json['description_title2_ar'] ?? '';
+    discountPercent = json['discount_percent'] ?? 0;
     productId = json['id'] ?? 0;
   }
 }
