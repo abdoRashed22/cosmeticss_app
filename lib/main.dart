@@ -3,23 +3,12 @@ import 'package:cosmetics/core/helper/cach.dart';
 import 'package:cosmetics/core/helper/message_snack_bar.dart';
 import 'package:cosmetics/core/helper/on_generate_route.dart';
 import 'package:cosmetics/splash_page.dart';
-import 'package:cosmetics/views/auth/forget_password.dart';
-import 'package:cosmetics/views/auth/login.dart';
-import 'package:cosmetics/views/auth/create_password.dart';
-import 'package:cosmetics/views/auth/verify_code.dart';
-import 'package:cosmetics/views/check_out.dart';
-import 'package:cosmetics/views/home/main_view.dart';
-import 'package:cosmetics/views/home/pages/profile.dart';
-import 'package:cosmetics/views/home/widgets/pin_location.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-// علشان نستخدم الـ SharedPreferences في كل مكان في التطبيق بدون ما نحتاج نعمل instance منه كل مرة
-// late SharedPreferences prefs ;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //    prefs = await SharedPreferences.getInstance();
   await Cach().init();
   runApp(const MyApp());
 }
@@ -40,14 +29,12 @@ class MyApp extends StatelessWidget {
           navigatorKey: navigatorKey,
           onGenerateRoute: AppRouter.routes,
 
-          // initialRoute: 'splash',
           theme: ThemeData(
             floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: Color(0xFF434C6D),
             ),
             filledButtonTheme: FilledButtonThemeData(
               style: FilledButton.styleFrom(
-                // for hright only and make a width responsible foe text
                 fixedSize: Size.fromHeight(65),
                 elevation: 0,
                 padding: EdgeInsets.zero,

@@ -36,14 +36,11 @@ class DioHelper {
       if (e.response?.statusCode == 401) {
         Cach.logout();
         log("test logout");
-        if (navigatorKey.currentContext != null) {
-          showCustomSnackBar(
-            context: navigatorKey.currentContext!,
-            message: 'Session expired. Please log in again.',
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-          );
-        }
+        showCustomSnackBar(
+          message: 'Session expired. Please log in again.',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
         return CustomResponse(isSuccess: false);
       }
       return CustomResponse(isSuccess: false, data: e.response?.data);
@@ -68,14 +65,11 @@ class DioHelper {
       if (e.response?.statusCode == 401) {
         Cach.logout();
         log("test logout");
-        if (navigatorKey.currentContext != null) {
-          showCustomSnackBar(
-            context: navigatorKey.currentContext!,
-            message: 'Session expired. Please log in again.',
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-          );
-        }
+        showCustomSnackBar(
+          message: 'Session expired. Please log in again.',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
         return CustomResponse(isSuccess: false);
       }
 

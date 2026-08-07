@@ -1,7 +1,6 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/helper/cach.dart';
 import 'package:cosmetics/core/helper/dio_helper.dart';
-import 'package:cosmetics/views/auth/login.dart';
 import 'package:cosmetics/views/home/pages/cart.dart';
 import 'package:cosmetics/views/home/pages/categories/view.dart';
 import 'package:cosmetics/views/home/pages/home/view.dart';
@@ -9,6 +8,7 @@ import 'package:cosmetics/views/home/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:cosmetics/views/auth/login/model.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -29,7 +29,7 @@ class _MainViewState extends State<MainView> {
   Future<void> getData() async {
     final resp = await DioHelper.getData(path: "/api/Auth/profile");
     if (resp.isSuccess) {
-      final data = UserModel.fromJson(resp.data);
+      final data = LoginModel.fromJson(resp.data);
       await Cach.saveUserData(model: data);
     } else {
       print(resp.message);

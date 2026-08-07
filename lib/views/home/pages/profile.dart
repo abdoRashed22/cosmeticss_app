@@ -1,5 +1,5 @@
 import 'package:cosmetics/core/helper/cach.dart';
-import 'package:cosmetics/views/auth/login.dart';
+import 'package:cosmetics/views/auth/login/view.dart';
 import 'package:cosmetics/views/home/widgets/profile_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,38 +54,14 @@ class Profile extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               children: [
-                ProfileTile(
-                  /* icon: SvgPicture.asset(
-                    'assets/icons/edit.svg',
-                    width: 22.w,
-                    height: 22.h,
-                  ),*/
-                  title: "Edit Info",
-                ),
+                ProfileTile(title: "Edit Info"),
                 ProfileTile(title: "Order History"),
 
                 ProfileTile(title: "wallet"),
-                ProfileTile(
-                  /*  icon: SvgPicture.asset(
-                    'assets/icons/settings.svg',
-                    width: 22.w,
-                    height: 22.h,
-                  ),*/
-                  title: "Settings",
-                ),
+                ProfileTile(title: "Settings"),
                 ProfileTile(title: "Voucher", destPage: const LoginView()),
 
-                ProfileTile(
-                  /* icon: SvgPicture.asset(
-                    'assets/icons/logout.svg',
-                    width: 22.w,
-                    height: 22.h,
-                  ),*/
-                  title: "Logout",
-
-                  // isLogOut: true,
-                  destPage: const LoginView(),
-                ),
+                ProfileTile(title: "Logout", destPage: const LoginView()),
               ],
             ),
           ),

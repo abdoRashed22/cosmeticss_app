@@ -1,6 +1,5 @@
 import 'dart:developer';
-
-import 'package:cosmetics/views/auth/login.dart';
+import 'package:cosmetics/views/auth/login/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Cach {
@@ -58,7 +57,7 @@ class Cach {
     log('test logout');
   }
 
-  static Future<void> saveUserData({UserData? data, UserModel? model}) async {
+  static Future<void> saveUserData({UserData? data, LoginModel? model}) async {
     if (data == null && model == null) {
       return;
     }

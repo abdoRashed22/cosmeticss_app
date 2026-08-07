@@ -3,7 +3,7 @@ import 'package:cosmetics/splash_page.dart';
 import 'package:cosmetics/views/auth/create_account.dart';
 import 'package:cosmetics/views/auth/create_password.dart';
 import 'package:cosmetics/views/auth/forget_password.dart';
-import 'package:cosmetics/views/auth/login.dart';
+import 'package:cosmetics/views/auth/login/view.dart';
 import 'package:cosmetics/views/auth/succes_dialog.dart';
 import 'package:cosmetics/views/home/pages/cart.dart';
 import 'package:cosmetics/views/home/pages/categories/view.dart';
