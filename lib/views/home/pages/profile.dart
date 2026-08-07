@@ -2,7 +2,6 @@ import 'package:cosmetics/core/helper/cach.dart';
 import 'package:cosmetics/views/auth/login.dart';
 import 'package:cosmetics/views/home/widgets/profile_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Profile extends StatelessWidget {

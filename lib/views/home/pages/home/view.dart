@@ -77,7 +77,7 @@ class ProductItem extends StatelessWidget {
           ),
           SizedBox(height: 11.h),
           Text(
-            product.name(context),
+            product.name,
             style: TextStyle(
               color: const Color(0xff434C6D),
               fontSize: 14.sp,

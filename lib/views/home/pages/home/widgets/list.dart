@@ -71,33 +71,19 @@ class _ListState extends State<_List> {
 
 class ProductModel {
   late final int id;
-  late final String nameEn, nameAr, descriptionEn, descriptionAr, imageUrl;
+  late final String name, description, imageUrl;
   late final num price;
   late final int stock;
   late final int? categoryId;
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? 0;
-    nameEn = json['name_en'] ?? '';
-    nameAr = json['name_ar'] ?? '';
-    descriptionEn = json['description_en'] ?? '';
-    descriptionAr = json['description_ar'] ?? '';
+    name = json['name_en'] ?? json['name'] ?? '';
+    description = json['description_en'] ?? json['description'] ?? '';
     imageUrl = json['image_url'] ?? '';
     price = json['price'] ?? 0;
     stock = json['stock'] ?? 0;
     categoryId = json['category_id'];
-  }
-
-  String name(BuildContext context) {
-    final isArabic =
-        Localizations.localeOf(context).languageCode.toLowerCase() == 'ar';
-    return isArabic && nameAr.isNotEmpty ? nameAr : nameEn;
-  }
-
-  String description(BuildContext context) {
-    final isArabic =
-        Localizations.localeOf(context).languageCode.toLowerCase() == 'ar';
-    return isArabic && descriptionAr.isNotEmpty ? descriptionAr : descriptionEn;
   }
 }
 

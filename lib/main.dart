@@ -1,5 +1,6 @@
 import 'package:cosmetics/core/helper/app_colors.dart';
 import 'package:cosmetics/core/helper/cach.dart';
+import 'package:cosmetics/core/helper/message_snack_bar.dart';
 import 'package:cosmetics/core/helper/on_generate_route.dart';
 import 'package:cosmetics/splash_page.dart';
 import 'package:cosmetics/views/auth/forget_password.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
           onGenerateRoute: AppRouter.routes,
 
           // initialRoute: 'splash',
@@ -94,7 +96,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
 
-          home: LoginView(),
+          home: SplashPage(),
         );
       },
     );

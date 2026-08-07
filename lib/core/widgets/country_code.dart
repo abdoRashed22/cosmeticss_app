@@ -1,5 +1,4 @@
 import 'package:cosmetics/core/helper/dio_helper.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -48,22 +47,6 @@ class _AppCountryCodeState extends State<AppCountryCode> {
 
     setState(() {});
   }
-
-  /*Future<void> getData() async {
-    final resp = await Dio().get('https://cosmatics.growfet.com/api/Countries');
-    final data = CountriesData.fromJson({'list': resp.data}).list;
-
-    setState(() {
-      countriesList = data;
-      int index = countriesList!.indexWhere((element) => element.code == '+20');
-      if (index != null && index != -1) {
-        selectedCode = countriesList![index].code;
-      } else {
-        selectedCode = countriesList!.first.code;
-      }
-       widget.onCodeChanged(selectedCode!);
-    });
-  }*/
 
   @override
   Widget build(BuildContext context) {

@@ -29,20 +29,21 @@ class DioHelper {
     } on DioException catch (e) {
       print(e.response?.data);
       if (e.response?.data != null && e.response?.data is Map) {
-        log(e.response?.data['message']);
+        log(e.response?.data['message'].toString() ?? 'No message');
         //  log(e.response?.data["CountryCode"][0] ?? "no country code");
         print(e.response?.statusCode);
       }
       if (e.response?.statusCode == 401) {
         Cach.logout();
         log("test logout");
-        showCustomSnackBar(
-          context: navigatorKey.currentContext!,
-          message: 'Session expired. Please log in again.',
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-        );
-
+        if (navigatorKey.currentContext != null) {
+          showCustomSnackBar(
+            context: navigatorKey.currentContext!,
+            message: 'Session expired. Please log in again.',
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        }
         return CustomResponse(isSuccess: false);
       }
       return CustomResponse(isSuccess: false, data: e.response?.data);
@@ -63,17 +64,18 @@ class DioHelper {
       }
       return CustomResponse(isSuccess: false);
     } on DioException catch (e) {
-      log(e.response?.data);
+      log(e.response?.data.toString() ?? 'No data');
       if (e.response?.statusCode == 401) {
         Cach.logout();
         log("test logout");
-        showCustomSnackBar(
-          context: navigatorKey.currentContext!,
-          message: 'Session expired. Please log in again.',
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-        );
-
+        if (navigatorKey.currentContext != null) {
+          showCustomSnackBar(
+            context: navigatorKey.currentContext!,
+            message: 'Session expired. Please log in again.',
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        }
         return CustomResponse(isSuccess: false);
       }
 

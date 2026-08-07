@@ -18,7 +18,7 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  int currentIndex = 2;
+  int currentIndex = 0;
 
   @override
   void initState() {

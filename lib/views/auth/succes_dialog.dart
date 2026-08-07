@@ -4,7 +4,6 @@ import 'package:cosmetics/core/widgets/custom_button.dart';
 import 'package:cosmetics/views/home/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 
 class SuccesDialog extends StatelessWidget {
   final String title, message, textButton;
