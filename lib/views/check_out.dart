@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:maps_launcher/maps_launcher.dart';
 
 class CheckOut extends StatelessWidget {
   const CheckOut({super.key});
@@ -58,11 +57,11 @@ class CheckOut extends StatelessWidget {
                             },
                             initialCameraPosition: CameraPosition(
                               target: position,
-                              
+
                               zoom: 10,
                             ),
                             liteModeEnabled: true,
-                            myLocationEnabled:true,
+                            myLocationEnabled: true,
                           ),
                         ),
                       ),

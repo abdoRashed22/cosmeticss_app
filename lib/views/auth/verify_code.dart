@@ -31,14 +31,14 @@ class VerifyCode extends StatefulWidget {
 class _VerifyCodeState extends State<VerifyCode> {
   bool canResend = false;
   String otpCode = '';
-  DataState? state;
+  ViewState? state;
 
   Future<void> verifyOtp() async {
     if (otpCode.length != 4) {
       showMsg('Please enter the 4-digit code', isError: true);
       return;
     }
-    setState(() => state = DataState.loading);
+    setState(() => state = ViewState.loading);
     final resp = await DioHelper.sendData(
       path: '/api/Auth/verify-otp',
       data: {
@@ -49,7 +49,7 @@ class _VerifyCodeState extends State<VerifyCode> {
     );
     if (!mounted) return;
     setState(
-      () => state = resp.isSuccess ? DataState.succes : DataState.failed,
+      () => state = resp.isSuccess ? ViewState.success : ViewState.failed,
     );
 
     if (resp.isSuccess) {
@@ -211,7 +211,7 @@ class _VerifyCodeState extends State<VerifyCode> {
               SizedBox(height: 120.h),
               CustomButton(
                 text: 'Done',
-                isLoading: state == DataState.loading,
+                isLoading: state == ViewState.loading,
                 onPressed: verifyOtp,
               ),
 

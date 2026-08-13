@@ -16,10 +16,10 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage> {
   List<CategoryModel> categoriesList = [];
-  DataState state = DataState.loading;
+  ViewState state = ViewState.loading;
 
   Future<void> getData() async {
-    state = DataState.loading;
+    state = ViewState.loading;
     setState(() {});
 
     final resp = await DioHelper.getData(path: '/api/Categories');
@@ -28,9 +28,9 @@ class _CategoryPageState extends State<CategoryPage> {
       categoriesList = (resp.data as List<dynamic>)
           .map((e) => CategoryModel.fromJson(e))
           .toList();
-      state = DataState.succes;
+      state = ViewState.success;
     } else {
-      state = DataState.failed;
+      state = ViewState.failed;
     }
 
     setState(() {});
@@ -64,9 +64,9 @@ class _CategoryPageState extends State<CategoryPage> {
             SizedBox(height: 20.h),
             SearchInput(onSearchTap: () {}),
             SizedBox(height: 25.h),
-            state == DataState.loading
+            state == ViewState.loading
                 ? const Center(child: CircularProgressIndicator())
-                : state == DataState.failed
+                : state == ViewState.failed
                 ? Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +75,7 @@ class _CategoryPageState extends State<CategoryPage> {
                         SizedBox(height: 12.h),
                         TextButton(
                           onPressed: () {
-                            state = DataState.loading;
+                            state = ViewState.loading;
                             setState(() {});
                             getData();
                           },

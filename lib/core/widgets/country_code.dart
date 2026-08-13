@@ -2,7 +2,7 @@ import 'package:cosmetics/core/helper/dio_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-enum DataState { loading, failed, succes }
+enum ViewState { initial, loading, failed, success }
 
 class AppCountryCode extends StatefulWidget {
   const AppCountryCode({super.key, required this.onCodeChanged});
@@ -21,9 +21,9 @@ class _AppCountryCodeState extends State<AppCountryCode> {
 
   List<CountryModel>? list;
 
-  DataState state = DataState.loading;
+  ViewState state = ViewState.loading;
   Future<void> getData() async {
-    state = DataState.loading;
+    state = ViewState.loading;
     setState(() {});
 
     final resp = await DioHelper.getData(path: "api/Countries");
@@ -40,9 +40,9 @@ class _AppCountryCodeState extends State<AppCountryCode> {
         widget.onCodeChanged(selectedCode!);
       }
 
-      state = DataState.succes;
+      state = ViewState.success;
     } else {
-      state = DataState.failed;
+      state = ViewState.failed;
     }
 
     setState(() {});
@@ -60,7 +60,7 @@ class _AppCountryCodeState extends State<AppCountryCode> {
             borderRadius: BorderRadius.circular(8.r),
             border: Border.all(color: Colors.grey, width: 1.w),
           ),
-          child: state == DataState.loading
+          child: state == ViewState.loading
               ? const Center(
                   child: CircularProgressIndicator(
                     strokeWidth: .5,
@@ -68,10 +68,10 @@ class _AppCountryCodeState extends State<AppCountryCode> {
                     backgroundColor: Colors.grey,
                   ),
                 )
-              : state == DataState.failed
+              : state == ViewState.failed
               ? IconButton(
                   onPressed: () {
-                    state = DataState.loading;
+                    state = ViewState.loading;
                     setState(() {});
                     getData();
                   },
